@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "data:text/javascript,document.title='REDIRECTED_TO_DATA_URL';console.log('DNR_REDIRECT_SUCCESS')"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https://testserver\\.example/redirect-target\\.js$",
+      "resourceTypes": ["script"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "regexSubstitution": "data:text/html,<h1>REDIRECTED</h1>"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https://testserver\\.example/redirect-target\\.html$",
+      "resourceTypes": ["main_frame", "sub_frame"]
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "id": "V-18+V-19",
+  "priority": "P2-14",
+  "title": "RingtonePlayer play()+getTitle() confused deputy",
+  "type": "ID+EoP",
+  "severity": "HIGH",
+  "pattern": "Confused deputy",
+  "file": "packages/SystemUI/src/com/android/systemui/media/RingtonePlayer.java:117,209",
+  "bounty_estimate": "$5k-$10k",
+  "status": "confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-18/",
+  "vrp_report_path": "workspace/vrp-reports/v-18.md",
+  "related_cve": [],
+  "notes": "CONFIRMED on Pixel 10 Android 16 patch 2026-04-05. Zero-permission PoC: shell UID 2000 obtains IRingtonePlayer Binder via AudioService.getRingtonePlayer() (no perm check), calls getTitle() on contacts/sms/calllog/media/calendar/downloads/telephony — all succeed. play() on contacts photo URI succeeds — SystemUI opens file with its privileges. getTitle() returns URI path segment (not actual content) for non-media providers, but confirms SystemUI acts as confused deputy accessing protected providers on caller's behalf.",
+  "created": "2026-04-28",
+  "updated": "2026-04-29"
+}

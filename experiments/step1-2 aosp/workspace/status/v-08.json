@@ -1,0 +1,20 @@
+{
+  "id": "V-8",
+  "priority": "P0-1",
+  "title": "PackageArchiver UnarchiveIntentSender EXTRA_INTENT system launch",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "Intent redirect (LaunchAnyWhere)",
+  "file": "services/core/java/com/android/server/pm/PackageArchiver.java:1519-1537",
+  "bounty_estimate": "$10k-$20k",
+  "status": "partial",
+  "verified_on": "2026-04-28",
+  "device": "Pixel 10",
+  "patch_level": "2026-04-05",
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": ["CVE-2025-48546"],
+  "notes": "Code-level flaw confirmed: UnarchiveIntentSender.send() extracts EXTRA_INTENT and starts with system context, no component/permission validation, no preventIntentRedirect. However, obtaining the Binder reference is extremely difficult — it travels via implicit Intent (ACTION_UNARCHIVE_DIALOG) but system PackageInstaller has priority=1 and system apps win resolution. Implicit intent interception on Android 16 is near-impossible. Demoted from P0 to P3-research. Real vuln but no practical exploit path on current devices.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

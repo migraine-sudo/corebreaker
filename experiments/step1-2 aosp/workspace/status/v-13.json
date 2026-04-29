@@ -1,0 +1,20 @@
+{
+  "id": "V-13",
+  "priority": "P2-16",
+  "title": "WifiDisplay MAC address leak via broadcast",
+  "type": "ID",
+  "severity": "HIGH",
+  "pattern": "Unprotected broadcast",
+  "file": "services/core/java/com/android/server/display/WifiDisplayAdapter.java:446",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "sendBroadcastAsUser(USER_ALL, receiverPermission=null). Leaks nearby WiFi Direct device MAC addresses and names. Violates Android 12+ MAC randomization goals.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

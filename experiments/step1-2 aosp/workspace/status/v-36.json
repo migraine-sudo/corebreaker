@@ -1,0 +1,20 @@
+{
+  "id": "V-36",
+  "priority": "P3-29",
+  "title": "preventIntentRedirect not fully enforced",
+  "type": "Systemic",
+  "severity": "HIGH",
+  "pattern": "Defense gap",
+  "file": "services/core/java/com/android/server/wm/ActivityStarter.java",
+  "bounty_estimate": "auxiliary",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Execution flags not fixed_read_only. All LaunchAnyWhere variants exploitable on devices without enforcement.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gamepad PP Bypass PoC - Host Page</title>
+<style>
+body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #0f0; }
+h1 { color: #0ff; }
+.status { padding: 10px; margin: 10px 0; border: 1px solid #333; }
+.blocked { color: #f00; }
+.bypassed { color: #ff0; }
+iframe { width: 100%; height: 400px; border: 2px solid #555; }
+</style>
+</head>
+<body>
+<h1>Gamepad Permission Policy Bypass PoC</h1>
+<p>This page sets <code>Permissions-Policy: gamepad=()</code> to deny ALL frames gamepad access.</p>
+<p>The embedded iframe should NOT be able to use the Gamepad API.</p>
+
+<h2>Host Page Test</h2>
+<div class="status" id="host-status">
+  Testing host page gamepad access...
+</div>
+
+<h2>Iframe (PP should block gamepad)</h2>
+<p>The iframe uses <code>addEventListener('gamepadconnected')</code> which bypasses the PP check.</p>
+<iframe id="attacker-frame" src="gamepad_pp_bypass_iframe.html" allow=""></iframe>
+
+<h2>Log</h2>
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += new Date().toISOString().slice(11,19) + ' ' + msg + '\n';
+}
+
+// Test: host page getGamepads() should work (top-level)
+try {
+  let pads = navigator.getGamepads();
+  document.getElementById('host-status').textContent =
+    'Host getGamepads(): OK (' + pads.length + ' slots)';
+  log('[HOST] getGamepads() works as expected');
+} catch(e) {
+  document.getElementById('host-status').textContent =
+    'Host getGamepads() error: ' + e.message;
+  document.getElementById('host-status').className = 'status blocked';
+  log('[HOST] getGamepads() error: ' + e.message);
+}
+
+// Listen for messages from iframe
+window.addEventListener('message', function(e) {
+  log('[IFRAME] ' + e.data);
+});
+
+log('[HOST] Page loaded. Connect a gamepad to test the bypass.');
+log('[HOST] If iframe reports gamepad data despite PP denial, the bypass is confirmed.');
+</script>
+</body>
+</html>

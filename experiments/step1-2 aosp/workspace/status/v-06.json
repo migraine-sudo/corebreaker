@@ -1,0 +1,20 @@
+{
+  "id": "V-6/V-26",
+  "priority": "P3-21",
+  "title": "SafeActivityOptions FREEFORM no check",
+  "type": "EoP",
+  "severity": "MEDIUM",
+  "pattern": "Windowing abuse",
+  "file": "services/core/java/com/android/server/wm/SafeActivityOptions.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "PINNED blocked but FREEFORM unchecked. Arbitrary floating windows on tablet/desktop devices.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

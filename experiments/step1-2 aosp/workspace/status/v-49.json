@@ -1,0 +1,20 @@
+{
+  "id": "V-49+V-50",
+  "priority": "P0-2",
+  "title": "SearchResultTrampoline → SubSettings isValidFragment() unconditional true",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "Fragment injection + Intent redirect",
+  "file": "packages/apps/Settings/src/com/android/settings/search/SearchResultTrampoline.java",
+  "bounty_estimate": "$5k-$20k",
+  "status": "rejected",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "REJECTED: verifyLaunchSearchResultPageCaller() effectively blocks exploitation. SignatureVerifier checks caller package against allowlist (SettingsIntelligence only). Both fragment path and deep link URI path produce 'Package name: com.android.shell is not allowlisted' and Activity finishes immediately. SubSettings.isValidFragment()=true is still a code smell but unreachable from untrusted caller.",
+  "created": "2026-04-28",
+  "updated": "2026-04-29"
+}

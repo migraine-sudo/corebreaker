@@ -1,0 +1,20 @@
+{
+  "id": "V-62",
+  "priority": "P3-25",
+  "title": "Persistent App protected broadcast",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "AMS broadcast",
+  "file": "services/core/java/com/android/server/am/BroadcastController.java:1035-1048",
+  "bounty_estimate": "$3k-$5k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Any persistent system app vulnerability can be leveraged to send protected broadcasts.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

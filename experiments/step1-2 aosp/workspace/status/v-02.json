@@ -1,0 +1,20 @@
+{
+  "id": "V-2",
+  "priority": "P1-6",
+  "title": "DPMS BAL propagation to Device Admin",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "BAL propagation",
+  "file": "services/devicepolicy/java/com/android/server/devicepolicy/DevicePolicyManagerService.java:3134-3142",
+  "bounty_estimate": "$7.5k-$15k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": ["CVE-2025-48572"],
+  "notes": "sendAdminCommandLocked() unconditionally sets BAL=true for all Device Admin broadcasts. Third-party Device Admin inherits BAL.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

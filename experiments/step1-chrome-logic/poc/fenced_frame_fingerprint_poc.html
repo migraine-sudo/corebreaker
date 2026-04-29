@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fenced Frame Fingerprinting PoC</title>
+<style>
+body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #0f0; }
+h1 { color: #0ff; }
+h2 { color: #ff0; }
+.info { color: #aaa; }
+pre { background: #111; padding: 10px; border: 1px solid #333; overflow: auto; max-height: 300px; }
+.pass { color: #0f0; }
+.fail { color: #f00; }
+</style>
+</head>
+<body>
+<h1>Fenced Frame Fingerprinting PoC</h1>
+<p class="info">This page demonstrates that fingerprinting APIs are accessible from within a page context.</p>
+<p class="info">In a real scenario, this code would run inside a &lt;fencedframe&gt; served via Protected Audience API.</p>
+<p class="info">Since fenced frames require HTTPS and special ad auction setup, this PoC runs the same code in a regular page to demonstrate the APIs work.</p>
+
+<h2>Test 1: enumerateDevices()</h2>
+<div id="t1">Testing...</div>
+
+<h2>Test 2: speechSynthesis.getVoices()</h2>
+<div id="t2">Testing...</div>
+
+<h2>Test 3: navigator.devicePosture</h2>
+<div id="t3">Testing...</div>
+
+<h2>Test 4: EyeDropper availability</h2>
+<div id="t4">Testing...</div>
+
+<h2>Combined Fingerprint</h2>
+<pre id="fingerprint">Collecting...</pre>
+
+<h2>Event Log</h2>
+<pre id="log"></pre>
+
+<script>
+const fp = {};
+
+function log(msg) {
+  document.getElementById('log').textContent += new Date().toISOString().slice(11,19) + ' ' + msg + '\n';
+}
+
+async function testEnumerateDevices() {
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    fp.deviceCount = devices.length;
+    fp.deviceKinds = devices.map(d => d.kind);
+    fp.deviceGroupIds = devices.map(d => d.groupId).filter(g => g);
+    document.getElementById('t1').innerHTML =
+      '<span class="pass">ACCESSIBLE: ' + devices.length + ' devices found</span><br>' +
+      'Kinds: ' + fp.deviceKinds.join(', ') + '<br>' +
+      'GroupIDs: ' + fp.deviceGroupIds.length + ' unique groups';
+    log('enumerateDevices: ' + devices.length + ' devices');
+  } catch(e) {
+    fp.deviceCount = 'blocked';
+    document.getElementById('t1').innerHTML = '<span class="fail">BLOCKED: ' + e.message + '</span>';
+    log('enumerateDevices blocked: ' + e.message);
+  }
+}
+
+function testGetVoices() {
+  try {
+    const voices = speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        const v = speechSynthesis.getVoices();
+        fp.voiceCount = v.length;
+        fp.voiceNames = v.map(v2 => v2.name + ':' + v2.lang);
+        document.getElementById('t2').innerHTML =
+          '<span class="pass">ACCESSIBLE: ' + v.length + ' voices</span><br>' +
+          'Sample: ' + fp.voiceNames.slice(0, 5).join(', ') + (v.length > 5 ? '...' : '');
+        log('getVoices (async): ' + v.length + ' voices');
+        updateFingerprint();
+      });
+    } else {
+      fp.voiceCount = voices.length;
+      fp.voiceNames = voices.map(v => v.name + ':' + v.lang);
+      document.getElementById('t2').innerHTML =
+        '<span class="pass">ACCESSIBLE: ' + voices.length + ' voices</span><br>' +
+        'Sample: ' + fp.voiceNames.slice(0, 5).join(', ');
+      log('getVoices: ' + voices.length + ' voices');
+    }
+  } catch(e) {
+    fp.voiceCount = 'blocked';
+    document.getElementById('t2').innerHTML = '<span class="fail">BLOCKED: ' + e.message + '</span>';
+    log('getVoices blocked: ' + e.message);
+  }
+}
+
+function testDevicePosture() {
+  try {
+    if (navigator.devicePosture) {
+      fp.posture = navigator.devicePosture.type;
+      document.getElementById('t3').innerHTML =
+        '<span class="pass">ACCESSIBLE: posture = ' + fp.posture + '</span>';
+      log('devicePosture: ' + fp.posture);
+    } else {
+      fp.posture = 'unavailable';
+      document.getElementById('t3').innerHTML =
+        '<span class="info">API not available (non-foldable device)</span>';
+      log('devicePosture: API not available');
+    }
+  } catch(e) {
+    fp.posture = 'blocked';
+    document.getElementById('t3').innerHTML = '<span class="fail">BLOCKED: ' + e.message + '</span>';
+    log('devicePosture blocked: ' + e.message);
+  }
+}
+
+function testEyeDropper() {
+  try {
+    if (typeof EyeDropper !== 'undefined') {
+      fp.eyeDropper = 'available';
+      document.getElementById('t4').innerHTML =
+        '<span class="pass">ACCESSIBLE: EyeDropper API available</span>';
+      log('EyeDropper: available');
+    } else {
+      fp.eyeDropper = 'unavailable';
+      document.getElementById('t4').innerHTML =
+        '<span class="info">EyeDropper API not available</span>';
+      log('EyeDropper: not available');
+    }
+  } catch(e) {
+    fp.eyeDropper = 'blocked';
+    document.getElementById('t4').innerHTML = '<span class="fail">BLOCKED: ' + e.message + '</span>';
+    log('EyeDropper blocked: ' + e.message);
+  }
+}
+
+function updateFingerprint() {
+  document.getElementById('fingerprint').textContent = JSON.stringify(fp, null, 2);
+}
+
+async function runAll() {
+  log('Starting fingerprinting tests...');
+  await testEnumerateDevices();
+  testGetVoices();
+  testDevicePosture();
+  testEyeDropper();
+  setTimeout(updateFingerprint, 1000);
+}
+
+runAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "id": "V-23",
+  "priority": "P3-24",
+  "title": "SliceManager cross-user slice access",
+  "type": "EoP/ID",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Cross-user",
+  "file": "services/core/java/com/android/server/slice/SliceManagerService.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "checkSlicePermissionInternal() has no cross-user permission check. Work profile app may read personal slices.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

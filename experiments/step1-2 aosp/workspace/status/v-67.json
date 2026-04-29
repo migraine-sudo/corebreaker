@@ -1,0 +1,20 @@
+{
+  "id": "V-67",
+  "priority": "P0-3",
+  "title": "AppOpsService virtual device bypass all restrictions",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "AppOps bypass",
+  "file": "services/core/java/com/android/server/appop/AppOpsService.java:5035",
+  "bounty_estimate": "$5k-$15k",
+  "status": "partial",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-67/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "PARTIAL: Code-level design flaw confirmed (isOpRestrictedLocked returns false for non-default VD, skipping ALL restrictions). BUT: fake virtualDeviceId=12345 returns MODE_IGNORED — isValidVirtualDeviceId() blocks invalid IDs before reaching the bypass. VDM service exists on Pixel 10 so null-path bypass unavailable. Exploitation requires CREATE_VIRTUAL_DEVICE (signature perm) + CDM association. Normal third-party app cannot exploit. Design issue for VRP submission but low practical impact from untrusted app.",
+  "created": "2026-04-28",
+  "updated": "2026-04-29"
+}

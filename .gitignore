@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+
+# Claude Code session data
+.claude/
+
+# Third-party source code (re-cloneable)
+experiments/step0-libxml2/libxml2-src/
+experiments/step1-chrome-logic/chromium-src/
+
+# Build artifacts
+experiments/step0-libxml2/build/
+experiments/step1-2 aosp/workspace/poc/**/build/
+
+# Fuzzer corpora (regenerable)
+experiments/step0-libxml2/corpus/
+experiments/step0-libxml2/corpus_schematron/
+
+# Fuzzer runtime workdir
+experiments/step0-libxml2/schematron_workdir/
+
+# Raw crash samples (binary, not useful in git)
+experiments/step0-libxml2/findings/
+experiments/step0-libxml2/findings_schematron/
+experiments/step0-angle/findings/
+experiments/step0-angle/findings_batch1/
+experiments/step0-angle/findings_release/
+experiments/step0-angle/findings_release_verified/
+experiments/step0-angle/findings_webgl2/
+experiments/step0-angle/findings_webgl2_struct/
+
+# Fuzzer / build logs (regenerable)
+experiments/step0-libxml2/*.log
+experiments/step0-angle/fuzz.log
+
+# Chromium CL patches (re-fetchable via fetch_cls.py)
+experiments/step1-chrome-logic/diffs/
+
+# Temporary screenshots at project root
+截屏*.png

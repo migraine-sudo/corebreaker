@@ -1,0 +1,209 @@
+=== crash-0d3feca71b6e6292f9f4a0c4a7561d0be137e268 ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==66806==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x000108778460 bp 0x7ff7b7937510 sp 0x7ff7b7937420 T0)
+==66806==The signal is caused by a READ memory access.
+==66806==Hint: address points to the zero page.
+    #0 0x000108778460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00010871b33b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x00010871dff5 in sh::TParseContext::parseSingleArrayDeclaration(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&) ParseContext.cpp:4924
+    #3 0x0001087fab58 in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3226
+    #4 0x000108750463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x00010867a69f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x00010867f2f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x0001085bb1d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==66806==Register values:
+rax = 0x0000625000007bf0  rbx = 0x00007ff7b7937480  rcx = 0x00007ff7b7937460  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x0000000000001d10  rbp = 0x00007ff7b7937510  rsp = 0x00007ff7b7937420  
+ r8 = 0x00001ffef6f288aa   r9 = 0x00001ffef6f288ac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7b7937420  r14 = 0x00001ffef6f26e84  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==66806==ABORTING
+Type: 0x8dd9 Spec: 4 Output: WGSL
+---
+=== crash-0e9f7ab81fc8989e5a5fda157d72ca2ade83a6c6 ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==66823==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x00010ee0e460 bp 0x7ff7b12a1470 sp 0x7ff7b12a1380 T0)
+==66823==The signal is caused by a READ memory access.
+==66823==Hint: address points to the zero page.
+    #0 0x00010ee0e460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00010edb133b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x00010edb5efd in sh::TParseContext::parseArrayDeclarator(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&, sh::TIntermDeclaration*) ParseContext.cpp:5168
+    #3 0x00010ee9068b in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3179
+    #4 0x00010ede6463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x00010ed1069f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x00010ed152f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x00010ec511d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==66823==Register values:
+rax = 0x0000625000007f50  rbx = 0x00007ff7b12a13e0  rcx = 0x00007ff7b12a13c0  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x00000000000019b4  rbp = 0x00007ff7b12a1470  rsp = 0x00007ff7b12a1380  
+ r8 = 0x00001ffef6255caa   r9 = 0x00001ffef6255cac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7b12a1380  r14 = 0x00001ffef6254270  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==66823==ABORTING
+Type: 0x8dd9 Spec: 4 Output: WGSL
+---
+=== crash-368468278cc57ba6d1e915f8fc89f617bd0a768a ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==66842==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x0001028bc460 bp 0x7ff7bd7f3510 sp 0x7ff7bd7f3420 T0)
+==66842==The signal is caused by a READ memory access.
+==66842==Hint: address points to the zero page.
+    #0 0x0001028bc460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00010285f33b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x000102861ff5 in sh::TParseContext::parseSingleArrayDeclaration(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&) ParseContext.cpp:4924
+    #3 0x00010293eb58 in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3226
+    #4 0x000102894463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x0001027be69f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x0001027c32f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x0001026ff1d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==66842==Register values:
+rax = 0x0000625000007e98  rbx = 0x00007ff7bd7f3480  rcx = 0x00007ff7bd7f3460  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x0000000000001a6c  rbp = 0x00007ff7bd7f3510  rsp = 0x00007ff7bd7f3420  
+ r8 = 0x00001ffef7b000aa   r9 = 0x00001ffef7b000ac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7bd7f3420  r14 = 0x00001ffef7afe684  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==66842==ABORTING
+Type: 0x8dd9 Spec: 5 Output: other
+---
+=== crash-3bb719da5b67aecbf64b26cef31ba2c18145d4f4 ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==66900==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x0001101ae460 bp 0x7ff7aff01510 sp 0x7ff7aff01420 T0)
+==66900==The signal is caused by a READ memory access.
+==66900==Hint: address points to the zero page.
+    #0 0x0001101ae460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00011015133b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x000110153ff5 in sh::TParseContext::parseSingleArrayDeclaration(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&) ParseContext.cpp:4924
+    #3 0x000110230b58 in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3226
+    #4 0x000110186463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x0001100b069f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x0001100b52f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x00010fff11d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==66900==Register values:
+rax = 0x0000625000008178  rbx = 0x00007ff7aff01480  rcx = 0x00007ff7aff01460  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x0000000000001788  rbp = 0x00007ff7aff01510  rsp = 0x00007ff7aff01420  
+ r8 = 0x00001ffef5fe1caa   r9 = 0x00001ffef5fe1cac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7aff01420  r14 = 0x00001ffef5fe0284  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==66900==ABORTING
+Type: 0x8dd9 Spec: 4 Output: WGSL
+---
+=== crash-455926cf6c37847d9c56d08f6ca38c2c096698ac ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==67008==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x00010eaf0460 bp 0x7ff7b15bf510 sp 0x7ff7b15bf420 T0)
+==67008==The signal is caused by a READ memory access.
+==67008==Hint: address points to the zero page.
+    #0 0x00010eaf0460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00010ea9333b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x00010ea95ff5 in sh::TParseContext::parseSingleArrayDeclaration(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&) ParseContext.cpp:4924
+    #3 0x00010eb72b58 in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3226
+    #4 0x00010eac8463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x00010e9f269f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x00010e9f72f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x00010e9331d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==67008==Register values:
+rax = 0x0000625000007be0  rbx = 0x00007ff7b15bf480  rcx = 0x00007ff7b15bf460  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x0000000000001d24  rbp = 0x00007ff7b15bf510  rsp = 0x00007ff7b15bf420  
+ r8 = 0x00001ffef62b98aa   r9 = 0x00001ffef62b98ac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7b15bf420  r14 = 0x00001ffef62b7e84  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==67008==ABORTING
+Type: 0x8dd9 Spec: 4 Output: WGSL
+---
+=== crash-5444b16f3406943e578fa903bc43f9e2b42872a2 ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==67041==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x00010ad99460 bp 0x7ff7b5316510 sp 0x7ff7b5316420 T0)
+==67041==The signal is caused by a READ memory access.
+==67041==Hint: address points to the zero page.
+    #0 0x00010ad99460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00010ad3c33b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x00010ad3eff5 in sh::TParseContext::parseSingleArrayDeclaration(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&) ParseContext.cpp:4924
+    #3 0x00010ae1bb58 in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3226
+    #4 0x00010ad71463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x00010ac9b69f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x00010aca02f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x00010abdc1d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==67041==Register values:
+rax = 0x0000625000007c80  rbx = 0x00007ff7b5316480  rcx = 0x00007ff7b5316460  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x0000000000001c84  rbp = 0x00007ff7b5316510  rsp = 0x00007ff7b5316420  
+ r8 = 0x00001ffef6a646aa   r9 = 0x00001ffef6a646ac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7b5316420  r14 = 0x00001ffef6a62c84  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==67041==ABORTING
+Type: 0x8dd9 Spec: 4 Output: WGSL
+---
+=== crash-6321663e954683de40a62962abb37232c59f578e ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==67046==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x0001006c0460 bp 0x7ff7bf9ef510 sp 0x7ff7bf9ef420 T0)
+==67046==The signal is caused by a READ memory access.
+==67046==Hint: address points to the zero page.
+    #0 0x0001006c0460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00010066333b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x000100665ff5 in sh::TParseContext::parseSingleArrayDeclaration(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&) ParseContext.cpp:4924
+    #3 0x000100742b58 in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3226
+    #4 0x000100698463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x0001005c269f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x0001005c72f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x0001005031d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==67046==Register values:
+rax = 0x0000625000007cd8  rbx = 0x00007ff7bf9ef480  rcx = 0x00007ff7bf9ef460  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x0000000000001c2c  rbp = 0x00007ff7bf9ef510  rsp = 0x00007ff7bf9ef420  
+ r8 = 0x00001ffef7f3f8aa   r9 = 0x00001ffef7f3f8ac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7bf9ef420  r14 = 0x00001ffef7f3de84  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==67046==ABORTING
+Type: 0x8dd9 Spec: 4 Output: other
+---
+=== crash-689835dd00abfe82a208abd68b60ecb98c8da3cc ===
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==67051==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x0001089fa460 bp 0x7ff7b76b5470 sp 0x7ff7b76b5380 T0)
+==67051==The signal is caused by a READ memory access.
+==67051==Hint: address points to the zero page.
+    #0 0x0001089fa460 in sh::TSymbolTable::setGlInArraySize(unsigned int, int) SymbolTable.cpp:192
+    #1 0x00010899d33b in sh::TParseContext::checkGeometryShaderInputAndSetArraySize(sh::TSourceLoc const&, sh::ImmutableString const&, sh::TType*, sh::GeomTessArray*) ParseContext.cpp:4646
+    #2 0x0001089a1efd in sh::TParseContext::parseArrayDeclarator(sh::TPublicType&, sh::TSourceLoc const&, sh::ImmutableString const&, sh::TSourceLoc const&, sh::TVector<unsigned int> const&, sh::TIntermDeclaration*) ParseContext.cpp:5168
+    #3 0x000108a7c68b in yyparse(sh::TParseContext*, void*) glslang_tab_autogen.cpp:3179
+    #4 0x0001089d2463 in sh::PaParseStrings(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, int const*, sh::TParseContext*) ParseContext.cpp:10442
+    #5 0x0001088fc69f in sh::TCompiler::compileTreeImpl(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:481
+    #6 0x0001089012f4 in sh::TCompiler::compile(angle::Span<char const* const, 18446744073709551615ul, char const* const*>, ShCompileOptions const&) Compiler.cpp:1291
+    #7 0x00010883d1d0 in main repro.cpp:65
+    #8 0x7ff807c283a5 in start+0x795 (dyld:x86_64+0xfffffffffff5c3a5)
+
+==67051==Register values:
+rax = 0x0000625000007dd0  rbx = 0x00007ff7b76b53e0  rcx = 0x00007ff7b76b53c0  rdx = 0x0000100000000003  
+rdi = 0x0000000000000018  rsi = 0x0000000000001b30  rbp = 0x00007ff7b76b5470  rsp = 0x00007ff7b76b5380  
+ r8 = 0x00001ffef6ed84aa   r9 = 0x00001ffef6ed84ac  r10 = 0x0000100000000000  r11 = 0x000010000000003f  
+r12 = 0x0000000000000000  r13 = 0x00007ff7b76b5380  r14 = 0x00001ffef6ed6a70  r15 = 0x00001c3e00000175  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV SymbolTable.cpp:192 in sh::TSymbolTable::setGlInArraySize(unsigned int, int)
+==67051==ABORTING
+Type: 0x8dd9 Spec: 4 Output: WGSL
+---
+=== crash-884edc2062bb30b9002b730f6d1ce9b5e1abddab ===

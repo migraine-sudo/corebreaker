@@ -1,0 +1,20 @@
+{
+  "id": "V-52",
+  "priority": "P3-18",
+  "title": "ChooseLockGeneric$InternalActivity export + password trust",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Settings EoP",
+  "file": "packages/apps/Settings/src/com/android/settings/password/ChooseLockGeneric.java:247",
+  "bounty_estimate": "$2k-$8k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Exported InternalActivity trusts EXTRA_KEY_PASSWORD from Intent extras.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

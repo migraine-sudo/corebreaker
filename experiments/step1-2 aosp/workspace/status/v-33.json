@@ -1,0 +1,20 @@
+{
+  "id": "V-33",
+  "priority": "P0-4",
+  "title": "DownloadStorageProvider RawDocumentsHelper zero-validation path traversal",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "ContentProvider path traversal",
+  "file": "packages/providers/DownloadProvider/src/com/android/providers/downloads/RawDocumentsHelper.java",
+  "bounty_estimate": "$10k-$20k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "raw: prefix docId → substring → zero canonicalize/containment check. FileSystemProvider base class has no path defense. Need to prove direct document URI grant acquisition.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

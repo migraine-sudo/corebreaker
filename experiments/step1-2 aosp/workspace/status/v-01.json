@@ -1,0 +1,20 @@
+{
+  "id": "V-1",
+  "priority": "P1-10",
+  "title": "isLaunchIntoPip() bypass PINNED mode check",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "CVE bypass / Windowing abuse",
+  "file": "services/core/java/com/android/server/wm/ActivityStarter.java:2109-2113",
+  "bounty_estimate": "$5k-$10k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": ["CVE-2025-48546"],
+  "notes": "CVE-2025-48546 blocked setLaunchWindowingMode(PINNED) but setLaunchIntoPipParams() takes different code path through moveActivityToPinnedRootTask().",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

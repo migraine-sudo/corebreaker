@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.poc.v18">
+
+    <!-- ZERO permissions declared — this is the whole point of the PoC -->
+
+    <application
+        android:label="V18-RingtonePoC"
+        android:allowBackup="false">
+
+        <activity
+            android:name=".ConfusedDeputyActivity"
+            android:exported="true"
+            android:label="V18 RingtonePlayer PoC">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

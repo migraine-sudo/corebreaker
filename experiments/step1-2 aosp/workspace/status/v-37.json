@@ -1,0 +1,20 @@
+{
+  "id": "V-37+V-38+V-41",
+  "priority": "P2-17",
+  "title": "TelephonyRegistry 3 broadcasts (carrier/signal/APN) zero-permission leak",
+  "type": "ID",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Unprotected broadcast",
+  "file": "services/core/java/com/android/server/TelephonyRegistry.java",
+  "bounty_estimate": "$5k-$10k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "ACTION_SERVICE_STATE (carrier/roaming), ACTION_SIG_STR (signal strength → location inference), ACTION_ANY_DATA_CONNECTION (APN/network type). All zero permission.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

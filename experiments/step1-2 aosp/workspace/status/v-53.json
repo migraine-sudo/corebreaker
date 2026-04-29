@@ -1,0 +1,20 @@
+{
+  "id": "V-53",
+  "priority": "P1-13",
+  "title": "AddAccountSettings KEY_INTENT redirect",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Intent redirect",
+  "file": "packages/apps/Settings/src/com/android/settings/accounts/AddAccountSettings.java:95-107",
+  "bounty_estimate": "$3k-$10k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": ["CVE-2014-7911"],
+  "notes": "Exported Activity handles ADD_ACCOUNT_SETTINGS. Malicious AccountAuthenticator returns arbitrary Intent → Settings launches with own permissions.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

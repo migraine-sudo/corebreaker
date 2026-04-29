@@ -1,0 +1,20 @@
+{
+  "id": "V-3",
+  "priority": "P2-15",
+  "title": "AudioService.hasHapticChannels() URI confused deputy",
+  "type": "ID",
+  "severity": "HIGH",
+  "pattern": "Confused deputy",
+  "file": "services/core/java/com/android/server/audio/AudioService.java:8493",
+  "bounty_estimate": "$5k-$10k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": ["CVE-2025-22420"],
+  "notes": "Public AIDL interface, any app passes arbitrary content: URI. AudioService (SYSTEM_UID) opens with system ContentResolver. Zero-permission trigger.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

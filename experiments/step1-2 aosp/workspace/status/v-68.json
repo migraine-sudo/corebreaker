@@ -1,0 +1,20 @@
+{
+  "id": "V-68",
+  "priority": "P1-11",
+  "title": "Profile Owner arbitrary AppOps modification",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "AppOps bypass",
+  "file": "services/core/java/com/android/server/appop/AppOpsService.java:2045-2061",
+  "bounty_estimate": "$5k-$10k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Profile Owner skips permission check and can modify any AppOps for any app in same profile: SYSTEM_ALERT_WINDOW, INSTALL_PACKAGES, CAMERA, etc.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

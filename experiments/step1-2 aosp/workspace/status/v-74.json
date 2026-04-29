@@ -1,0 +1,20 @@
+{
+  "id": "V-74",
+  "priority": "P3-20",
+  "title": "NLS Companion Device channel tampering",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "NMS privilege escalation",
+  "file": "services/core/java/com/android/server/notification/NotificationManagerService.java",
+  "bounty_estimate": "$3k-$5k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "CDM-associated NLS can modify any apps notification channel: suppress bank alerts, inject ads.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}

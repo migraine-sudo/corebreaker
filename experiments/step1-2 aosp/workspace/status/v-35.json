@@ -1,0 +1,20 @@
+{
+  "id": "V-35",
+  "priority": "P0-5",
+  "title": "LauncherAppsService startShortcut identity elevation + unexported access + auto BAL",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "Intent redirect + identity elevation",
+  "file": "services/core/java/com/android/server/pm/LauncherAppsService.java",
+  "bounty_estimate": "$7.5k-$15k",
+  "status": "pending",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Triple threat: publisher identity + unexported Activity access + MODE_BACKGROUND_ACTIVITY_START_ALLOWED. Need to verify shortcut data manipulation feasibility.",
+  "created": "2026-04-28",
+  "updated": "2026-04-28"
+}
