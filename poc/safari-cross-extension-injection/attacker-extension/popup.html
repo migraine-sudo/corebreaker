@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dark Mode Pro</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; width: 400px; padding: 1em; background: #0a0a0a; color: #eee; }
+    h2 { color: #ff4444; }
+    .stolen { background: #1a0000; border: 1px solid #8f2d2d; padding: 1em; margin: 0.5em 0; border-radius: 6px; }
+    .entry { margin: 0.3em 0; font-family: monospace; font-size: 0.85em; }
+    .label { color: #888; }
+    .value { color: #ff6b6b; }
+    button { background: #ff4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 0.5em 0; }
+    button:hover { background: #ff6666; }
+    #status { color: #888; margin: 1em 0; }
+    pre { background: #111; padding: 0.5em; border-radius: 4px; overflow: auto; max-height: 300px; font-size: 0.8em; color: #0f0; }
+  </style>
+</head>
+<body>
+  <h2>☠️ Cross-Extension Data Theft</h2>
+  <p style="color:#888; font-size:0.85em">This "Dark Mode" extension is stealing data from other installed extensions.</p>
+
+  <button id="attack-btn">🔍 Scan & Steal Extension Data</button>
+  <div id="status"></div>
+  <div id="results"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

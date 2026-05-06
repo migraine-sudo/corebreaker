@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Secure Vault (Victim Password Manager)",
+  "version": "1.0",
+  "description": "Simulates a password manager storing sensitive credentials in extension storage",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
