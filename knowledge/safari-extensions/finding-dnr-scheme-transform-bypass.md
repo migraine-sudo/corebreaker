@@ -224,3 +224,38 @@ All three should be applied for defense-in-depth.
 2. Add rule with `transform: { scheme: "data" }` targeting a known script URL
 3. Load a page with strict CSP that allows the original script URL
 4. Verify the `data:` URL script executes despite CSP
+
+## Discovery Provenance: Chrome Audit → Safari Vulnerability
+
+This finding was **directly derived** from our prior Chrome logic audit work:
+
+### Source Materials Used
+
+1. **`experiments/step1-chrome-logic/audit_results/finding_024_dnr_regex_scheme_bypass.md`**
+   - Our Chrome audit identified the DNR regex scheme bypass *pattern* — noting that Chrome's `kAllowedTransformSchemes` allowlist is a critical security defense
+   - Chrome itself is NOT vulnerable because this defense exists
+   - But the finding documented: "if a browser lacks this check, DNR redirect + CSP timing = arbitrary code execution"
+
+2. **`experiments/step1-chrome-logic/chromium-src/extensions/browser/api/declarative_net_request/constants.cc`**
+   - We extracted Chrome's source code containing the `kAllowedTransformSchemes` definition
+   - This became the direct comparison evidence proving WebKit's gap
+
+3. **`experiments/step1-chrome-logic/chromium-src/extensions/browser/api/declarative_net_request/indexed_rule.cc`**
+   - Chrome's `IsValidTransformScheme()` implementation at lines 309-319
+   - Searched WebKit for equivalent → none found → vulnerability confirmed
+
+### Methodology: Cross-Implementation Differential Analysis
+
+```
+Chrome audit (finding_024)
+  → "kAllowedTransformSchemes is a known-needed defense"
+  → Search WebKit for equivalent
+  → Not found
+  → Trace data flow to confirm exploitability
+  → Confirmed: 5 layers of missing validation
+  → PoC constructed
+```
+
+**Core insight**: One vendor's security hardening = another vendor's vulnerability signal. Chrome adding a restriction means "this is dangerous without the restriction." If WebKit doesn't have it, that's a reportable vulnerability.
+
+This demonstrates the value of accumulating audit findings even when the target itself isn't vulnerable — the patterns discovered in one codebase become attack templates for others implementing the same specification.
