@@ -2,7 +2,9 @@
 
 ## Summary
 
-Safari's WebKit Web Extension implementation of `declarativeNetRequest` `redirect` rules with `transform.scheme` fails to restrict the target scheme to safe values. While Chrome restricts `transform.scheme` to only `["http", "https", "ftp", "chrome-extension"]`, WebKit only blocks `javascript:` — allowing `data:`, `file:`, `blob:`, and arbitrary custom schemes. Combined with missing re-validation of redirected URLs against SecurityOrigin and CSP, this enables a malicious extension with only `declarativeNetRequest` permission to bypass Content Security Policy on any page.
+Safari's WebKit Web Extension implementation of `declarativeNetRequest` `redirect` rules with `transform.scheme` fails to restrict the target scheme to safe values. While Chrome restricts `transform.scheme` to only `["http", "https", "ftp", "chrome-extension"]`, WebKit only blocks `javascript:` — allowing `data:`, `file:`, `blob:`, `webkit-extension:`, and arbitrary custom schemes. Combined with missing re-validation of redirected URLs against SecurityOrigin and CSP, this enables a malicious extension with only `declarativeNetRequest` permission to bypass Content Security Policy on any page.
+
+Additionally, `redirect.regexSubstitution` has NO scheme check at all — `ContentExtensionActions.cpp:470-472` uses the substitution result directly if it's a valid URL, meaning regex substitution can produce `webkit-extension://`, `file://`, or any other scheme without restriction.
 
 ## Severity
 
