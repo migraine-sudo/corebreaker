@@ -9,7 +9,9 @@
 | CVE 模式知识库 | ✅ 完成（8 模式） | 2026-05-05 |
 | Validator 验证 | ✅ 完成（9 validators 分析） | 2026-05-05 |
 | 深入审计（tabs/DNR/sender） | ✅ 完成 | 2026-05-05 |
-| PoC 构建 | ⬜ 待开始 | - |
+| PoC 构建 — DNR CSP Bypass | ✅ 完成 | 2026-05-05 |
+| PoC 构建 — Cross-Extension Injection | ✅ 完成 | 2026-05-06 |
+| Native Messaging 深入审计 | ✅ 完成 | 2026-05-06 |
 
 ## 已验证的 Validator 实现
 
@@ -136,6 +138,31 @@ if (m_cachedPermissionURLs.contains(url)) {
 - `UIProcess/Extensions/Cocoa/API/WebExtensionContextAPITabsCocoa.mm` — tabs handler
 - `UIProcess/Extensions/Cocoa/API/WebExtensionContextAPIScriptingCocoa.mm` — scripting handler
 
+## 已确认漏洞（有 PoC）
+
+### 漏洞 1: DNR CSP Bypass (CVSS 8.1)
+
+**PoC**: `poc/safari-dnr-csp-bypass/`
+**报告**: EN + CN 双语完整报告
+**根因**: `transform.scheme` 无 allowlist，允许 `data:` scheme 绕过 CSP
+**Chrome 防御**: `kAllowedTransformSchemes = {"http", "https", "ftp", "chrome-extension"}`
+**WebKit 缺陷**: 仅阻止 `javascript:`，允许 `data:`/`file:`/`blob:`
+
+### 漏洞 2: Cross-Extension Script Injection (CVSS 9.1)
+
+**PoC**: `poc/safari-cross-extension-injection/`
+**报告**: EN + CN 双语完整报告
+**根因**: `<all_urls>` 匹配 `webkit-extension://` URL，`permissionState()` 无跨扩展阻断
+**Chrome 防御**: `permissions_data.cc:164-168` 跨扩展阻止
+**WebKit 缺陷**: `supportedSchemes()` 包含 `Scheme::Extension`，无 cross-extension deny
+
+### 漏洞 3: Native Messaging Content Script Escalation (CVSS 8.6-9.3, 待 PoC)
+
+**文档**: `knowledge/safari-extensions/finding-native-messaging-content-script.md`
+**根因**: Content script 可调用 `sendNativeMessage`/`connectNative`，UIProcess 无 context 限制
+**Chrome 防御**: Browser process 限制仅 background/service worker 可调用
+**WebKit 缺陷**: `isPropertyAllowed` 不区分 caller context，UIProcess handler 无权限检查
+
 ## 深入分析结果
 
 ### P0 #4 — Permission cache 投毒: ❌ 排除（设计安全）
@@ -153,19 +180,24 @@ if (m_cachedPermissionURLs.contains(url)) {
 
 **遗留微小问题**: API permission 过期后 `RequestedImplicitly` 可能在缓存中 stale，但所有安全关键路径(`hasPermission`)都用 `SkipRequestedPermissions` → 返回 Unknown（安全等效）。
 
-### P0 #6 — RuntimeSendNativeMessage: ⚠️ 设计缺陷（非直接可利用）
+### P0 #6 — RuntimeSendNativeMessage: ✅ 确认漏洞（纯逻辑 bug，不需 renderer compromise）
 
-**结论**: content script 可调用，但需要 extension manifest 声明 `nativeMessaging` 权限。
+**结论**: Content script 可以直接调用 `runtime.sendNativeMessage()` 和 `runtime.connectNative()`。Chrome 明确限制这些 API 仅 background script 可调用。
 
-**发现**:
-- IPC validator: `isLoaded` — 不区分 privileged/unprivileged
-- WebProcess 侧 `isPropertyAllowed` 检查 `nativeMessaging` 权限（控制 JS API 可见性）
-- UIProcess `sendNativeMessage()` 实现**无权限检查** — 完全依赖 IPC validator
-- Native host 收到的消息**不包含调用者身份**（背景页 vs content script）
-- NSExtension 路径: 只传递 `{message: ...}` — 无 sender info
-- Delegate 路径: 传 `extensionContext` wrapper — 是整个 extension，不是具体 world
+**关键证据**:
+- `WebExtensionAPIRuntimeCocoa.mm:162-169`: `isPropertyAllowed` 仅检查 manifest 声明了 `nativeMessaging`，**不区分** content script vs background
+- `WebExtensionContext.messages.in:128-129`: IPC validator 仅 `isLoaded`
+- `WebExtensionContextAPIRuntimeCocoa.mm:238-350`: UIProcess `sendNativeMessage()` 无任何权限或 context 检查
+- `WebExtensionContextAPIRuntimeCocoa.mm:364-419`: `runtimeConnectNative()` 同样无 context 检查
+- Native host 收到的消息**不包含调用者身份**
 
-**风险**: 如果 extension 有 `nativeMessaging` + native host 做特权操作 → XSS 到 content script → native message → 沙箱逃逸。但需要受害 extension 的具体配置。
+**攻击链**: Web page XSS → content script context → `browser.runtime.sendNativeMessage()` → native host（app sandbox）→ keychain/文件系统/网络
+
+**Chrome 对比**: Chrome 在 browser process 级别限制 `sendNativeMessage/connectNative` 仅 background/service worker context 可调用。Safari 无此限制。
+
+**影响**: $100K-300K bounty category（sandbox escape via privileged native host）
+**前置条件**: 目标 extension 需有 `nativeMessaging` + content scripts 注入攻击者可控页面
+**详细文档**: `knowledge/safari-extensions/finding-native-messaging-content-script.md`
 
 ### P0 #2 — delegate bypass: ⚠️ Ecosystem 风险
 
