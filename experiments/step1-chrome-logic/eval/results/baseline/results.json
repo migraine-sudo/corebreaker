@@ -1,0 +1,136 @@
+{
+  "metrics": {
+    "recall": 0.6,
+    "mean_depth_score": 0.725,
+    "false_positive_rate": 0.0,
+    "overall_score": 0.435,
+    "detected": 3,
+    "total_vuln_entries": 5,
+    "false_positives": 0,
+    "total_adversarial": 5
+  },
+  "vuln_details": [
+    {
+      "detection": 1,
+      "root_cause": 1,
+      "matched_keywords": [
+        "DCHECK",
+        "release"
+      ],
+      "exploitability": 0,
+      "fix_quality": 2,
+      "depth_score": 4,
+      "max_score": 8,
+      "id": "C1",
+      "description": "DCHECK protects IsSavingAndFillingEnabled but is no-op in release; passwords saved when policy disables saving"
+    },
+    {
+      "detection": 1,
+      "root_cause": 1,
+      "matched_keywords": [
+        "fallback"
+      ],
+      "exploitability": 1,
+      "fix_quality": 0,
+      "depth_score": 3,
+      "max_score": 8,
+      "id": "C2",
+      "description": "CSP enforcement relies on error message string matching; frame removal causes different error string, bypassing CSP fallback block"
+    },
+    {
+      "detection": 3,
+      "root_cause": 2,
+      "matched_keywords": [
+        "frame tree",
+        "ancestor",
+        "opener",
+        "GetParent",
+        "nullptr",
+        "rfh"
+      ],
+      "exploitability": 1,
+      "fix_quality": 1,
+      "depth_score": 7,
+      "max_score": 8,
+      "id": "C3",
+      "description": "LNA permission check requires initiator to be in frame tree of navigating frame; opener-initiated cross-window navigation skips the check entirely"
+    },
+    {
+      "detection": 3,
+      "root_cause": 2,
+      "matched_keywords": [
+        "kCache",
+        "kRaceNetworkAndCache",
+        "matched_source_type",
+        "actual_source_type",
+        "condition"
+      ],
+      "exploitability": 1,
+      "fix_quality": 2,
+      "depth_score": 8,
+      "max_score": 8,
+      "id": "C4",
+      "description": "Opaque response validation only checks kCache source type, not kRaceNetworkAndCache which can also serve from cache"
+    },
+    {
+      "detection": 3,
+      "root_cause": 2,
+      "matched_keywords": [
+        "should_be_filtered",
+        "random",
+        "noise",
+        "filtered",
+        "observing",
+        "5%"
+      ],
+      "exploitability": 1,
+      "fix_quality": 1,
+      "depth_score": 7,
+      "max_score": 8,
+      "id": "C5",
+      "description": "should_be_filtered flag computed from real topic's domain set but inherited by random replacement topic, creating a binary oracle"
+    }
+  ],
+  "adversarial_details": [
+    {
+      "false_positive": false,
+      "output_has_issue": false,
+      "output_confidence": "high",
+      "correct": true,
+      "id": "A1",
+      "description": "postMessage targetOrigin check at send time could theoretically be bypassed by TOCTOU if target navigates during PostTask delay"
+    },
+    {
+      "false_positive": false,
+      "output_has_issue": false,
+      "output_confidence": "high",
+      "correct": true,
+      "id": "A2",
+      "description": "SAA StorageAccessHandle uses CreateFirstParty() for BroadcastChannel/SharedWorker, enabling cross-partition communication"
+    },
+    {
+      "false_positive": false,
+      "output_has_issue": false,
+      "output_confidence": "high",
+      "correct": true,
+      "id": "A3",
+      "description": "kServiceWorkerStaticRouterOpaqueCheck and kServiceWorkerStaticRouterCORPCheck are FEATURE_DISABLED_BY_DEFAULT"
+    },
+    {
+      "false_positive": false,
+      "output_has_issue": false,
+      "output_confidence": "high",
+      "correct": true,
+      "id": "A4",
+      "description": "SharedWorker same_site_cookies field from renderer is not fully validated for first-party contexts"
+    },
+    {
+      "false_positive": false,
+      "output_has_issue": false,
+      "output_confidence": "high",
+      "correct": true,
+      "id": "A5",
+      "description": "Shared Storage selectURL timing difference between enabled and disabled cross-origin could leak state"
+    }
+  ]
+}

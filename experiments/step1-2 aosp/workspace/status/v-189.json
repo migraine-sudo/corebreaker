@@ -1,0 +1,20 @@
+{
+  "id": "V-189",
+  "priority": "P2-20",
+  "title": "CredentialManager getCredentialProviderServices zero-perm provider enumeration + cross-user + arbitrary userId",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "Missing permission check + cross-user parameter injection",
+  "file": "frameworks/base/services/credentials/java/com/android/server/credentials/CredentialManagerService.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "device_confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel) AP4A.260405.005 Android 16",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-184/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "DEVICE CONFIRMED. getCredentialProviderServices(userId, providerFilter) has ZERO permission check and accepts arbitrary userId. Confirmed: (1) User 0 returns 3 Google credential providers with full ComponentName (GoogleIdService, RemoteService, PasswordAndPasskeyService) — no permission needed. (2) User 10 returns empty list but NO SecurityException — cross-user enumeration confirmed. (3) User 999 (non-existent) also returns empty list, no error. Also confirmed getCredentialProviderServicesForTesting(int) method exists. Impact: app profiling (which credential providers are enabled), cross-user privacy leak.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

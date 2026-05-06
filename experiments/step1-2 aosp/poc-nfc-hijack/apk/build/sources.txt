@@ -1,0 +1,6 @@
+/Users/migriane/Downloads/fuzzmind/corebreaker/experiments/step1-2 aosp/poc-nfc-hijack/app/src/main/java/com/poc/nfchijack/MainActivity.java
+/Users/migriane/Downloads/fuzzmind/corebreaker/experiments/step1-2 aosp/poc-nfc-hijack/app/src/main/java/com/poc/nfchijack/ReflectionHelper.java
+/Users/migriane/Downloads/fuzzmind/corebreaker/experiments/step1-2 aosp/poc-nfc-hijack/app/src/main/java/com/poc/nfchijack/PollingInjector.java
+/Users/migriane/Downloads/fuzzmind/corebreaker/experiments/step1-2 aosp/poc-nfc-hijack/app/src/main/java/com/poc/nfchijack/NfcKillService.java
+/Users/migriane/Downloads/fuzzmind/corebreaker/experiments/step1-2 aosp/poc-nfc-hijack/app/src/main/java/com/poc/nfchijack/HijackHceService.java
+/Users/migriane/Downloads/fuzzmind/corebreaker/experiments/step1-2 aosp/poc-nfc-hijack/build/gen/com/poc/nfchijack/R.java

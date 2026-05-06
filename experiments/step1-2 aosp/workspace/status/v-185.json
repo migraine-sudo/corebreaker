@@ -1,0 +1,20 @@
+{
+  "id": "V-185",
+  "priority": "P1-08",
+  "title": "BackgroundInstallControlService getBackgroundInstalledPackages zero permission — full app list leak + cross-user",
+  "type": "ID",
+  "severity": "HIGH",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/core/java/com/android/server/pm/BackgroundInstallControlService.java",
+  "bounty_estimate": "$3k-$10k",
+  "status": "device_confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel) AP4A.260405.005 Android 16",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-185/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "DEVICE CONFIRMED. (1) getBackgroundInstalledPackages(0L, 0) returns ParceledListSlice with 22 packages (full package names + install times) WITHOUT any permission. Leaked apps include TikTok, ProtonVPN, Pokemon Go, Fitbit, Google Wallet, etc. (2) Cross-user query for user 10 SUCCEEDED without INTERACT_ACROSS_USERS — returned 0 packages but no SecurityException. (3) registerBackgroundInstallCallback needs proper IBinder callback (Java Proxy fails with NPE on asBinder). Feature flag bicClient() appears OFF on this device, bypassing the GET_BACKGROUND_INSTALLED_PACKAGES check entirely.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

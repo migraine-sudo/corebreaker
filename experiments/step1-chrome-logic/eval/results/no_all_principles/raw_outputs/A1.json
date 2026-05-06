@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": false,
+  "file": "third_party/blink/renderer/core/frame/local_dom_window.cc",
+  "line": 0,
+  "root_cause": "No vulnerability. The postMessage dispatch path has two independent defenses against TOCTOU: IsCurrentlyDisplayedInFrame() rejects delivery if the frame navigated away, and the origin is re-checked at dispatch time against the target. Both must be bypassed simultaneously, and no path exists to do so from a normal web page.",
+  "exploitable": false,
+  "exploit_conditions": "N/A - not exploitable. Would require bypassing both the frame-display check and the dispatch-time origin comparison, which are independent and both enforced.",
+  "suggested_fix": "No fix needed.",
+  "confidence": "high"
+}
+```

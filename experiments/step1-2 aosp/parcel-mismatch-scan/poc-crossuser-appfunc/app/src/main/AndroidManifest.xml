@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.poc.crossuser">
+
+    <!-- NO PERMISSIONS DECLARED — only writes to own app directory -->
+    <uses-sdk android:minSdkVersion="28" android:targetSdkVersion="35" />
+    <queries><package android:name="com.android.shell"/></queries>
+
+    <application
+        android:label="CrossUser PoC"
+        android:allowBackup="false"
+        android:debuggable="true">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver
+            android:name=".TestReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.poc.crossuser.RUN_TEST" />
+            </intent-filter>
+        </receiver>
+        <provider
+            android:name=".ResultProvider"
+            android:authorities="com.poc.crossuser.results"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".AppFuncProvider"
+            android:authorities="com.poc.crossuser.appfunc"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".AppFuncDeepProvider"
+            android:authorities="com.poc.crossuser.appfuncdeep"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".IdentifyProvider"
+            android:authorities="com.poc.crossuser.identify"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".DataExfilProvider"
+            android:authorities="com.poc.crossuser.exfil"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".CrossAppProvider"
+            android:authorities="com.poc.crossuser.crossapp"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".PredictionProvider"
+            android:authorities="com.poc.crossuser.prediction"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".CrossAppLeakProvider"
+            android:authorities="com.poc.crossuser.crossappleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".DeepProbeProvider"
+            android:authorities="com.poc.crossuser.deepprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ODIExploitProvider"
+            android:authorities="com.poc.crossuser.odi"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ContentProviderScanProvider"
+            android:authorities="com.poc.crossuser.cpscan"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".MediaRouterLeakProvider"
+            android:authorities="com.poc.crossuser.routerleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".UsageStatsExfilProvider"
+            android:authorities="com.poc.crossuser.usageexfil"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".RouterDeepProvider"
+            android:authorities="com.poc.crossuser.routerdeep"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".CredentialLeakProvider"
+            android:authorities="com.poc.crossuser.credleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".NearbyLeakProvider"
+            android:authorities="com.poc.crossuser.nearbyleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".CrossAppDeepProvider"
+            android:authorities="com.poc.crossuser.crossappdeep"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".AppOracleProvider"
+            android:authorities="com.poc.crossuser.apporacle"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".PrivateSpaceProbeProvider"
+            android:authorities="com.poc.crossuser.privateprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".CrossUserSettingsProvider"
+            android:authorities="com.poc.crossuser.xusersettings"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ActivityLeakProvider"
+            android:authorities="com.poc.crossuser.actleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ClipboardMonitorProvider"
+            android:authorities="com.poc.crossuser.clipmon"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".PixelServiceProbeProvider"
+            android:authorities="com.poc.crossuser.pixelprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".MediaSessionLeakProvider"
+            android:authorities="com.poc.crossuser.medialeak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".SystemOracleProvider"
+            android:authorities="com.poc.crossuser.sysoracle"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".SensorPrivacyProvider"
+            android:authorities="com.poc.crossuser.sensorpriv"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".PackageOracleProvider"
+            android:authorities="com.poc.crossuser.pkgoracle"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".AppSearchLeakProvider"
+            android:authorities="com.poc.crossuser.appsearchleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".HighValueProbeProvider"
+            android:authorities="com.poc.crossuser.highvalue"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".TrustClipDeepProvider"
+            android:authorities="com.poc.crossuser.trustdeep"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".AccountShortcutProbeProvider"
+            android:authorities="com.poc.crossuser.acctshortcut"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".WallpaperDeepProvider"
+            android:authorities="com.poc.crossuser.wallpaperdeep"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".SettingsCrossUserProvider"
+            android:authorities="com.poc.crossuser.settingsxuser"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".HealthConnectProbeProvider"
+            android:authorities="com.poc.crossuser.healthprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".MediaAccessProvider"
+            android:authorities="com.poc.crossuser.mediaaccess"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ContentCaptureProbeProvider"
+            android:authorities="com.poc.crossuser.ccprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".PendingIntentProbeProvider"
+            android:authorities="com.poc.crossuser.piprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ContentCaptureExploitProvider"
+            android:authorities="com.poc.crossuser.ccexploit"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".NewServicesProbeProvider"
+            android:authorities="com.poc.crossuser.newsvcs"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".DomainVerifyLeakProvider"
+            android:authorities="com.poc.crossuser.dvleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".LauncherSmartProbeProvider"
+            android:authorities="com.poc.crossuser.lsprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ActivityTaskProbeProvider"
+            android:authorities="com.poc.crossuser.atprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".PMCrossUserProvider"
+            android:authorities="com.poc.crossuser.pmxuser"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".HighImpactProbeProvider"
+            android:authorities="com.poc.crossuser.hiprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".SettingsAuditProvider"
+            android:authorities="com.poc.crossuser.settingsaudit"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".SettingsCrossUserV2Provider"
+            android:authorities="com.poc.crossuser.settingsxuserv2"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".SettingsGapProvider"
+            android:authorities="com.poc.crossuser.settingsgap"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".FaceServiceProbeProvider"
+            android:authorities="com.poc.crossuser.faceprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".TaskLeakProvider"
+            android:authorities="com.poc.crossuser.taskleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".WallpaperLeakProvider"
+            android:authorities="com.poc.crossuser.wallleak"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".FinalProbeProvider"
+            android:authorities="com.poc.crossuser.finalprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".URIConfusionProvider"
+            android:authorities="com.poc.crossuser.uriconfusion"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".DVEscalateProvider"
+            android:authorities="com.poc.crossuser.dvescalate"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".CredNotiProbeProvider"
+            android:authorities="com.poc.crossuser.credprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".RoleExploitProvider"
+            android:authorities="com.poc.crossuser.roleexploit"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".LauncherProbeProvider"
+            android:authorities="com.poc.crossuser.launcherprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".LauncherDeepProvider"
+            android:authorities="com.poc.crossuser.launcherdeep"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".CrossUserURIProvider"
+            android:authorities="com.poc.crossuser.xuriprobe"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".TimingOracleProvider"
+            android:authorities="com.poc.crossuser.timingoracle"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".ProcessObserverProvider"
+            android:authorities="com.poc.crossuser.procobs"
+            android:exported="true"
+            android:directBootAware="true" />
+        <provider
+            android:name=".AMDeepProvider"
+            android:authorities="com.poc.crossuser.amdeep"
+            android:exported="true"
+            android:directBootAware="true" />
+    </application>
+
+</manifest>

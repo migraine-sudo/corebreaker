@@ -1,0 +1,20 @@
+{
+  "id": "V-188",
+  "priority": "P3-34",
+  "title": "SafetyCenterService clearAllSafetySourceDataForTests available in production builds",
+  "type": "EoP",
+  "severity": "MEDIUM",
+  "pattern": "Test API exposed in production",
+  "file": "packages/modules/SafetyCenter/service/java/com/android/safetycenter/SafetyCenterService.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "clearAllSafetySourceDataForTests (lines 617-633) and setSafetyCenterConfigForTests (lines 635-652) only require MANAGE_SAFETY_CENTER (signature) but are NOT restricted to test builds. Available in production. Compromised system app can: (1) wipe all safety warnings, (2) replace safety center config to disable sources. TODO comment acknowledges concern. Also: setSafetySourceData silently ignores invalid packages instead of throwing.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

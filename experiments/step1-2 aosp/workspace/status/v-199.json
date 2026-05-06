@@ -1,0 +1,20 @@
+{
+  "id": "V-199",
+  "priority": "P1-8",
+  "title": "AppWidgetServiceImpl backup/restore 方法无权限检查 — widget 状态读取/篡改",
+  "type": "EoP/Info",
+  "severity": "HIGH",
+  "pattern": "Missing permission check on Binder-exposed methods",
+  "file": "frameworks/base/services/appwidget/java/com/android/server/appwidget/AppWidgetServiceImpl.java",
+  "bounty_estimate": "$3k-$7k",
+  "status": "code_confirmed",
+  "verified_on": "2026-04-29",
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Five backup/restore Binder methods at lines 2377-2394 have zero permission checks: getWidgetParticipants(userId), getWidgetState(pkg, userId), systemRestoreStarting(userId), restoreWidgetState(pkg, bytes, userId), systemRestoreFinished(userId). These are exposed via IAppWidgetService.Stub (AppWidgetServiceImpl directly extends it at line 129). Normally called by BackupManagerService which checks BACKUP permission, but any app that can reach the 'appwidget' binder service can call these directly. getWidgetState leaks full widget configuration XML. restoreWidgetState can inject arbitrary widget bindings. Needs SELinux verification that untrusted_app can access appwidget service binder.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

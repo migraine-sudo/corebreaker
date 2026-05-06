@@ -1,0 +1,20 @@
+{
+  "id": "V-162",
+  "priority": "P2-10",
+  "title": "TelecomService placeCall() via self-managed ConnectionService with normal-level MANAGE_OWN_CALLS",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Permission level mismatch",
+  "file": "packages/services/Telecomm/src/com/android/server/telecom/TelecomServiceImpl.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "MANAGE_OWN_CALLS is normal-level (auto-granted). Any app can register a ConnectionService and use addNewIncomingCall()/placeCall() to create phone call UI without CALL_PHONE. Creates convincing fake incoming call screens — phishing vector. Does NOT place real cellular calls, but the UI is very convincing on stock Android dialer.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

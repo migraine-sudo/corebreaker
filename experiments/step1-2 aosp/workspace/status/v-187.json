@@ -1,0 +1,20 @@
+{
+  "id": "V-187",
+  "priority": "P3-33",
+  "title": "OnDevicePersonalization logApiCallStats no auth/rate limit — stats pollution",
+  "type": "DoS",
+  "severity": "MEDIUM",
+  "pattern": "Missing authentication",
+  "file": "packages/modules/OnDevicePersonalization/src/com/android/ondevicepersonalization/services/OnDevicePersonalizationManagingServiceDelegate.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "logApiCallStats (lines 241-271) has: no kill switch check, no device support check, no package ownership verification, no enrollment check, no rate limiting. Accepts arbitrary sdkPackageName without validation. Any app can pollute ODP statistics with fake data, attribute fake patterns to legitimate SDKs, flood stats logging.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

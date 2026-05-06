@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": true,
+  "file": "components/browsing_topics/epoch_topics.cc",
+  "line": 192,
+  "root_cause": "should_be_filtered is computed against the real_topic's observer domains but then incorrectly applied to the random_topic. This means callers who never observed the user's real topic always get filtered (0% noise instead of 5%), creating a binary signal: an empty response definitively tells the caller that the user has NO interest they've observed, defeating the plausible deniability guarantee that random noise was designed to provide.",
+  "exploitable": true,
+  "exploit_conditions": "Any third-party ad/tracker domain embedded on pages can call document.browsingTopics() across multiple epochs. If the response is consistently empty, the attacker learns with certainty that the user never visited sites in the attacker's observed topic categories — information that should be masked by 5% random noise. Over multiple epochs, this absence-of-noise oracle leaks whether specific topic categories apply to the user.",
+  "suggested_fix": "When use_random_topic is true, recompute should_be_filtered against the random_topic's observer domains (or unconditionally set should_be_filtered=false for random topics, since the whole point of noise is that it should be returned regardless of observation status).",
+  "confidence": "high"
+}
+```

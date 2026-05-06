@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": false,
+  "file": "content/common/features.cc",
+  "line": 706,
+  "root_cause": "The CORP and opaque response checks are gated behind FEATURE_DISABLED_BY_DEFAULT flags, but the context explicitly states this is a known staged rollout tracked in crbug.com/495999481. The team is actively and incrementally enabling these checks. Reporting 'the flag is disabled' adds no new information.",
+  "exploitable": false,
+  "exploit_conditions": "N/A — this is a known deployment state, not an unknown vulnerability",
+  "suggested_fix": "No fix needed; the team is already rolling out enablement per their tracked bug",
+  "confidence": "high"
+}
+```

@@ -1,0 +1,20 @@
+{
+  "id": "V-178",
+  "priority": "P2-17",
+  "title": "LocationManagerService LOCATION_BYPASS over-grants PERMISSION_FINE access",
+  "type": "ID",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Over-permission grant",
+  "file": "frameworks/base/services/core/java/com/android/server/location/LocationManagerService.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "When Flags.enableLocationBypass() is true, LOCATION_BYPASS (signature|privileged) automatically grants PERMISSION_FINE level instead of COARSE. Pattern repeats in getCurrentLocation(), registerLocationListener(), registerLocationPendingIntent(), getLastLocation() (lines 824-836, 864-876, 900-912, 1063-1075). Privileged app with LOCATION_BYPASS for emergency use gets full GPS coordinates. Also: getBackgroundThrottlingWhitelist/getIgnoreSettingsAllowlist/getAdasAllowlist leak allowlisted packages without permission check.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

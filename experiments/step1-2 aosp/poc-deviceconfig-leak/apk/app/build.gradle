@@ -1,0 +1,33 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.poc.deviceconfigleak'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.poc.deviceconfigleak"
+        minSdk 30
+        targetSdk 35
+        versionCode 1
+        versionName "1.0-poc"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+}

@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": true,
+  "file": "components/browsing_topics/epoch_topics.cc",
+  "line": 190,
+  "root_cause": "should_be_filtered is computed against real_topic's observer domains but then applied to random_topic. This means callers who never observed the user's real topic always get filtered (even on the 5% random path), creating a binary signal: empty response = 'user has no interest observed by this caller'. The 5% noise guarantee, which exists to provide plausible deniability, is defeated for non-observing callers.",
+  "exploitable": true,
+  "exploit_conditions": "Attacker operates a site that has NOT observed the user browsing topic-related sites. By calling document.browsingTopics() repeatedly across epochs, the attacker can distinguish 'user has interests observed by other callers but not me' (always empty, 0% noise) vs 'user has interests observed by me' (non-empty with 5% noise). This leaks cross-site interest membership without any special privileges.",
+  "suggested_fix": "When use_random_topic is true, recompute should_be_filtered against random_topic's observer list (or unconditionally set should_be_filtered=false for random topics, since the random topic is noise and filtering it defeats its purpose).",
+  "confidence": "high"
+}
+```

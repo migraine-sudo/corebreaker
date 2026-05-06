@@ -1,0 +1,20 @@
+{
+  "id": "V-201",
+  "priority": "P0-1",
+  "title": "MediaSessionService.setCustomMediaKeyDispatcher 零权限 system_server 任意类实例化",
+  "type": "RCE/EoP",
+  "severity": "CRITICAL",
+  "pattern": "Missing permission check + arbitrary class instantiation",
+  "file": "frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java",
+  "bounty_estimate": "$10k-$30k+",
+  "status": "device_verified",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (caiman) Android 16 AP4A.250305.002",
+  "patch_level": "2025-03-05",
+  "poc_path": "workspace/poc/v-201/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "ISessionManager.setCustomMediaKeyDispatcher(String className) TRANSACTION_CODE=25 has ZERO permission check. It calls Class.forName(className).getDeclaredConstructor(Context.class).newInstance(mContext) in system_server (pid 13078). FULLY VERIFIED ON DEVICE: (1) service call media_session 25 s16 'com.android.server.SystemServer' -> Class.forName succeeds, getDeclaredConstructor fails (no Context ctor). (2) service call media_session 25 s16 'android.content.ContextWrapper' -> CONSTRUCTOR EXECUTES SUCCESSFULLY in system_server, then ClassCastException after. Logcat confirms: 'java.lang.ClassCastException at MediaSessionService.instantiateCustomDispatcher'. This proves arbitrary class instantiation works. Need gadget class with Context ctor + dangerous side effects. setCustomMediaSessionPolicyProvider (TRANSACTION_CODE=26) is identical. From untrusted_app: raw Binder.transact() bypasses hidden API enforcement.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

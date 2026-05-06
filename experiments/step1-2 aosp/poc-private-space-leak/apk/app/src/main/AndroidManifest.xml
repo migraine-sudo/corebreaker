@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.poc.privatespaceleak">
+
+    <!--
+        V-344/V-345/V-346: Private Space Zero-Permission Detection Chain
+
+        PERMISSIONS REQUIRED: NONE
+        No permissions declared. This PoC demonstrates that any installed app
+        can detect, identify, and monitor Android 15's Private Space feature
+        using public UserManager APIs that forgot to filter hidden profiles.
+    -->
+
+    <uses-sdk android:minSdkVersion="35" android:targetSdkVersion="35" />
+
+    <application
+        android:label="Private Space Leak PoC"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="Private Space Leak">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

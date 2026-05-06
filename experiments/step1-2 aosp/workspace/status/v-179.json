@@ -1,0 +1,20 @@
+{
+  "id": "V-179",
+  "priority": "P4-02",
+  "title": "CompanionDeviceManager disassociate() — likely has deeper permission checks",
+  "type": "DoS",
+  "severity": "NEEDS_DEEPER_REVIEW",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/companion/java/com/android/server/companion/CompanionDeviceManagerService.java",
+  "bounty_estimate": "$0-$2k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Given CDM-1 was FALSE POSITIVE (processor has caller checks via getAssociationWithCallerChecks), these methods likely also have similar checks in DisassociationProcessor. Stub-level analysis insufficient — need to verify processor implementation. Severity uncertain pending deeper code review.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "V-195",
+  "priority": "P2-12",
+  "title": "UriGrantsManagerService.grantUriPermissionFromOwner sourceUserId 参数不受控",
+  "type": "EoP/Info",
+  "severity": "MEDIUM",
+  "pattern": "Missing cross-user validation",
+  "file": "frameworks/base/services/core/java/com/android/server/uri/UriGrantsManagerService.java",
+  "bounty_estimate": "$1k-$5k",
+  "status": "code_confirmed",
+  "verified_on": "2026-04-29",
+  "device": null,
+  "patch_level": null,
+  "poc_path": "workspace/poc/v-195/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "grantUriPermissionFromOwner() validates targetUserId via handleIncomingUser but sourceUserId (i3) is taken directly from caller without any cross-user permission check. Caller can specify sourceUserId=10 (work profile) to construct GrantUri pointing to another user's ContentProvider. Exploitability depends on checkGrantUriPermissionUnlocked inner logic (decompile failed for this 559-instruction method). takePersistableUriPermission and releasePersistableUriPermission have same sourceUserId issue.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

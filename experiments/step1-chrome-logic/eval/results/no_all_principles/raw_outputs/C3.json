@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": true,
+  "file": "content/browser/storage_partition_impl.cc",
+  "line": 2271,
+  "root_cause": "The ancestor walk uses only GetParent() which traverses the frame tree within a single page, but opener-initiated navigations come from a different browsing context (window). When the initiator is an opener rather than an ancestor frame, the while loop exhausts without matching, rfh remains nullptr, and the Local Network Access permission check is entirely skipped rather than denied.",
+  "exploitable": true,
+  "exploit_conditions": "Attacker page (public internet) opens a popup or is opened as a popup. The opener then navigates the opened window (or vice versa via opener reference) to a local network resource (e.g. 192.168.x.x). Because the initiator lives in a separate frame tree connected only by the opener relationship, the permission prompt is bypassed. No flags, extensions, or compromised renderer required — just window.open() from a normal HTTPS page.",
+  "suggested_fix": "When the ancestor walk fails to find the initiator, treat rfh as the navigation's frame_tree_node current_frame_host (deny or prompt) rather than nullptr (skip). Alternatively, extend the search to check opener relationships via GetOpener() in addition to GetParent(), or explicitly deny LNA permission when the initiator cannot be located in any related browsing context.",
+  "confidence": "high"
+}
+```

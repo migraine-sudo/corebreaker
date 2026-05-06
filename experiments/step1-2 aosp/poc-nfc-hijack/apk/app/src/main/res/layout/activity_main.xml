@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FF1A1A1A">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NFC Payment Hijack PoC"
+        android:textSize="20sp"
+        android:textColor="#FFFF4444"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="V-451 + V-452 + V-456 | Android 15+"
+        android:textSize="12sp"
+        android:textColor="#FF888888"
+        android:gravity="center"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Not started"
+        android:textSize="14sp"
+        android:textColor="#FF888888"
+        android:paddingBottom="12dp" />
+
+    <Button
+        android:id="@+id/btn_test_binder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0. Test Binder Access (no permission needed)"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_start_kill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="V-452: Kill"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btn_stop_kill"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop Kill"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_inject_polling"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="V-451: Inject Polling Frames"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_set_preferred"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="V-456: Set Preferred HCE Service"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_fingerprint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="V-451: Fingerprint NFC Services"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_full_attack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FULL ATTACK CHAIN (V-452+V-451+V-456)"
+        android:textColor="#FFFF0000"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/log_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="10sp"
+            android:textColor="#FF00FF00"
+            android:fontFamily="monospace"
+            android:background="#FF000000"
+            android:padding="8dp" />
+    </ScrollView>
+
+</LinearLayout>

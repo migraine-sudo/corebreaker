@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.poc.nfchijack'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.poc.nfchijack"
+        minSdk 35        // Android 15 (where notifyPollingLoop was added)
+        targetSdk 35
+        versionCode 1
+        versionName "1.0-poc"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    // No dependencies needed — all NFC APIs are in the framework
+}

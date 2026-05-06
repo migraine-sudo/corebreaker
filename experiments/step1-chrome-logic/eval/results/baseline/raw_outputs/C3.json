@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": true,
+  "file": "content/browser/storage_partition_impl.cc",
+  "line": 2271,
+  "root_cause": "The ancestor-walk loop only traverses the frame tree via GetParent(), which only covers parent frames within the same frame tree. When the initiator is in a different browsing context (e.g., an opener window), the loop terminates without finding it, leaving rfh as nullptr. This causes the Local Network Access permission check to be skipped entirely rather than denied, allowing cross-window navigations to local network resources without user consent.",
+  "exploitable": true,
+  "exploit_conditions": "Attacker page opens a popup (or is opened as a popup), then uses the cross-window reference (opener/opened) to navigate a frame in the other window to a local network URL (e.g., http://192.168.1.1/admin). No special flags, extensions, or compromised renderer required — just standard window.open() and cross-window navigation via the opener/opened reference.",
+  "suggested_fix": "When the ancestor walk fails to find the initiator in the current frame tree, do NOT skip the permission check. Either (1) deny the request by default when rfh is nullptr and an initiator was expected, or (2) extend the search to cover opener/opened relationships by also checking via GetOpener() chains, and still require the permission prompt using the target frame as the permission anchor if the initiator cannot be located.",
+  "confidence": "high"
+}
+```

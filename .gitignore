@@ -38,3 +38,24 @@ experiments/step1-chrome-logic/diffs/
 
 # Temporary screenshots at project root
 截屏*.png
+
+# Large binary files (exceed GitHub 100MB limit)
+*.apk
+*.mov
+*.MOV
+*.mp4
+*.ipa
+*.zip
+*.tar.gz
+*.tar.xz
+
+# Third-party source code / downloaded targets (re-cloneable)
+targets/
+ouroboros/
+
+# AOSP decompiled binaries and large workspace files
+experiments/step1-2 aosp/workspace/decompiled/
+experiments/step1-2 aosp/workspace/bad-resolve-scan/
+
+# WebKit source (re-cloneable)
+experiments/step1-chrome-logic/chromium-src/

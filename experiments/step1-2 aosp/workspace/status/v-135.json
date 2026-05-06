@@ -1,0 +1,20 @@
+{
+  "id": "V-135",
+  "priority": "R4-32",
+  "title": "TYPE_ANNOUNCEMENT injection to all a11y services",
+  "type": "Injection",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Unfiltered event dispatch",
+  "file": "services/accessibility/java/com/android/server/accessibility/AccessibilitySecurityPolicy.java",
+  "bounty_estimate": "$2k-$5k",
+  "status": "confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-138/QuickTest.java",
+  "vrp_report_path": "workspace/vrp-reports/v-135.md",
+  "related_cve": [],
+  "notes": "CONFIRMED: sendAccessibilityEvent(TYPE_ANNOUNCEMENT=0x4000) sent with zero permissions, no SecurityException. Event packageName can be spoofed (tested with com.google.android.apps.messaging). canDispatchAccessibilityEventLocked() always dispatches TYPE_ANNOUNCEMENT without checking isRetrievalAllowingWindowLocked. Any running a11y service (TalkBack, password managers) receives the injected event. If TalkBack is enabled, injected text would be spoken aloud. Enables phishing via fake a11y announcements from spoofed packages.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

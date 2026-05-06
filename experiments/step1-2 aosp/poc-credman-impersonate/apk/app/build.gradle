@@ -1,0 +1,30 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.poc.credmanleak'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.poc.credmanleak"
+        minSdk 34        // Android 14 (CredentialManager introduction)
+        targetSdk 35
+        versionCode 1
+        versionName "1.0-poc"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+}

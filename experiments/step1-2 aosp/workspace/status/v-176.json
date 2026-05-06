@@ -1,0 +1,20 @@
+{
+  "id": "V-176",
+  "priority": "P4-01",
+  "title": "CompanionDeviceManager enableSystemDataSync/disableSystemDataSync — FALSE POSITIVE",
+  "type": "EoP",
+  "severity": "FALSE_POSITIVE",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/companion/java/com/android/server/companion/CompanionDeviceManagerService.java",
+  "bounty_estimate": "$0",
+  "status": "rejected",
+  "verified_on": "2026-04-29",
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "FALSE POSITIVE. While binder entry points have no @EnforcePermission annotation, they delegate to AssociationRequestsProcessor which calls AssociationStore.getAssociationWithCallerChecks() → enforceCallerCanManageAssociationsForPackage() in PermissionsUtils.java. This enforces caller is SYSTEM_UID, owner package of the association, or holds MANAGE_COMPANION_DEVICES permission. Third-party app without existing association cannot call these methods.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

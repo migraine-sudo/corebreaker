@@ -1,0 +1,20 @@
+{
+  "id": "V-190",
+  "priority": "P2-15",
+  "title": "PermissionManagerServiceImpl updatePermissionFlagsForAllApps INVERTED ternary — SYSTEM_FIXED not modifiable on device but USER_SET is",
+  "type": "EoP",
+  "severity": "MEDIUM",
+  "pattern": "Inverted logic bug",
+  "file": "frameworks/base/services/core/java/com/android/server/pm/permission/PermissionManagerServiceImpl.java",
+  "bounty_estimate": "$3k-$8k",
+  "status": "code_confirmed_device_partial",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel) AP4A.260405.005 Android 16",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-190/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "CODE BUG CONFIRMED in AOSP main, DEVICE PARTIAL. On Pixel 10 Android 16: (1) updatePermissionFlagsForAllApps callable without exception with SYSTEM_FIXED flag — but SYSTEM_FIXED flags do NOT actually change. Device code may differ from AOSP main or have additional protection. (2) HOWEVER: USER_SET flag IS modifiable via updatePermissionFlagsForAllApps — confirmed SET adds USER_SET to FOREGROUND_SERVICE_CAMERA (0x0→0x1), CLEAR removes USER_SET from POST_NOTIFICATIONS (0x305→0x304). This means the API is functional and affects ALL packages' ALL permissions. (3) Shell has GRANT_RUNTIME_PERMISSIONS, REVOKE_RUNTIME_PERMISSIONS, ADJUST_RUNTIME_PERMISSIONS_POLICY, INTERACT_ACROSS_USERS, INTERACT_ACROSS_USERS_FULL. (4) Cross-user modification (user 10) accepted without exception. (5) The inverted ternary is a real AOSP code bug but practical exploitation of SYSTEM_FIXED modification may be blocked on production devices. Downgraded to MEDIUM — still reportable as code-level bug.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

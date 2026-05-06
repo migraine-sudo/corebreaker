@@ -1,0 +1,3 @@
+build/classes/com/poc/rangingleak/R.class
+build/classes/com/poc/rangingleak/MainActivity.class
+build/classes/com/poc/rangingleak/MainActivity$StubBinder.class

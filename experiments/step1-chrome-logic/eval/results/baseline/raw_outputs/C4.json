@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": true,
+  "file": "content/browser/service_worker/service_worker_main_resource_loader.cc",
+  "line": 908,
+  "root_cause": "The opaque response validation check uses matched_source_type (set at route-match time) rather than actual_source_type (set when cache wins the race). When a static router rule specifies kRaceNetworkAndCache and the cache wins, the response actually comes from cache but bypasses IsValidStaticRouterResponse validation because the condition only checks for kCache matched_source_type. This allows an opaque (cross-origin no-cors) cached response to be served as a main resource navigation response without validation.",
+  "exploitable": true,
+  "exploit_conditions": "Attacker registers a service worker with a static router rule using source: 'race-network-and-cache'. The SW previously caches an opaque (no-cors cross-origin) response. When cache wins the race, the opaque response is served as a navigation response bypassing the opaque check, potentially leaking cross-origin resource content or causing security-relevant state confusion in the navigation pipeline.",
+  "suggested_fix": "Change the condition at line 908 to also check actual_source_type == kCache, or apply the validation unconditionally when the response actually originated from cache regardless of matched_source_type. Specifically: `if (matched_source_type == kCache || (matched_source_type == kRaceNetworkAndCache && actual_source_type == kCache))`",
+  "confidence": "high"
+}
+```

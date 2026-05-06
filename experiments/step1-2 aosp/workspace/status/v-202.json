@@ -1,0 +1,20 @@
+{
+  "id": "V-202",
+  "priority": "P0-2",
+  "title": "MediaSessionService.dispatchVolumeKeyEvent 无权限 + caller-controlled asSystem flag — confused deputy",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "Missing permission check + confused deputy",
+  "file": "frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java",
+  "bounty_estimate": "$5k-$15k",
+  "status": "device_verified",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (caiman) Android 16 AP4A.250305.002",
+  "patch_level": "2025-03-05",
+  "poc_path": "workspace/poc/v-201/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Multiple ISessionManager methods lack permission checks: (1) dispatchVolumeKeyEvent takes boolean asSystem from caller - when true, volume adjustments execute with system_server uid/pid via Process.myUid()/myPid(). (2) dispatchVolumeKeyEventToSessionAsSystemService hardcodes asSystem=true. (3) dispatchMediaKeyEventToSessionAsSystemService allows key injection into any media session as system. All confirmed accessible from uid 2000. Compare with dispatchAdjustVolume which hardcodes asSystem=false, and addOnMediaKeyEventDispatchedListener which requires MEDIA_CONTENT_CONTROL.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": false,
+  "file": "content/common/features.cc",
+  "line": 703,
+  "root_cause": "These feature flags gate CORP and opaque response checks for ServiceWorker Static Router responses. However, the context explicitly states that crbug.com/495999481 tracks this staged rollout and the team is aware the flags are disabled by default. This is a known, intentional staged deployment — not an unknown security gap.",
+  "exploitable": false,
+  "exploit_conditions": "N/A — this is a known staged rollout with an existing tracking bug. The team is incrementally enabling these checks.",
+  "suggested_fix": "No fix needed — this is proceeding as planned per the tracking bug.",
+  "confidence": "high"
+}
+```

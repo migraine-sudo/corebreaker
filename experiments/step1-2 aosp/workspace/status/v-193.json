@@ -1,0 +1,20 @@
+{
+  "id": "V-193",
+  "priority": "P2-10",
+  "title": "ContentService.cancelSyncAsUser 缺少 hasAccountAccess/hasAuthorityAccess 权限检查",
+  "type": "DoS",
+  "severity": "MEDIUM",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/core/java/com/android/server/content/ContentService.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "code_confirmed",
+  "verified_on": "2026-04-29",
+  "device": null,
+  "patch_level": null,
+  "poc_path": "workspace/poc/v-193/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "cancelSyncAsUser() only checks enforceCrossUserPermission but NOT hasAccountAccess or hasAuthorityAccess. Compare with requestSync() at line 567 which does both checks. Any app can cancel sync for any account/authority belonging to other apps in the same user. Passing account=null,authority=null cancels ALL syncs for the user. This is a DoS vulnerability - attacker can prevent email/contacts/calendar sync.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

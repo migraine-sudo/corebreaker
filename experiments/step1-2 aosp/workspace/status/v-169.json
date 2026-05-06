@@ -1,0 +1,20 @@
+{
+  "id": "V-169",
+  "priority": "P2-13",
+  "title": "MediaSessionService dispatchMediaKeyEventToSessionAsSystemService missing permission check",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "dispatchMediaKeyEventToSessionAsSystemService() dispatches media key events as system service (asSystemService=true) but has no permission check verifying caller is system. Any app with a valid MediaSession.Token (obtainable by notification listeners or via getSessions()) can inject system-level key events into any session. Also: dispatchMediaKeyEvent() doesn't validate packageName — caller impersonation possible. addSession2TokensListener() skips enforceMediaPermissions() unlike addSessionsListener().",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

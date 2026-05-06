@@ -1,0 +1,20 @@
+{
+  "id": "V-198",
+  "priority": "P1-7",
+  "title": "AppWidgetServiceImpl.updateAppWidgetProvider 缺少 checkRemoteViewsUris — URI 权限绕过",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "Missing security check on alternate code path",
+  "file": "frameworks/base/services/appwidget/java/com/android/server/appwidget/AppWidgetServiceImpl.java",
+  "bounty_estimate": "$3k-$10k",
+  "status": "code_confirmed",
+  "verified_on": "2026-04-29",
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "updateAppWidgetProvider(ComponentName, RemoteViews) at line 1319-1343 does NOT call checkRemoteViewsUris(remoteViews). Compare with updateAppWidgetIds (line 1482-1502) which DOES call checkRemoteViewsUris at line 1488. checkRemoteViewsUris verifies content:// URIs in RemoteViews have read permission via UriGrantsManagerInternal.checkUriPermission. A malicious widget provider can embed content:// URIs it cannot access (e.g. contacts, photos) into RemoteViews via updateAppWidgetProvider path, bypassing the URI permission check. The widget host (launcher) will attempt to read these URIs with its own identity when inflating the RemoteViews.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

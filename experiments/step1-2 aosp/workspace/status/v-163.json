@@ -1,0 +1,20 @@
+{
+  "id": "V-163",
+  "priority": "P2-11",
+  "title": "UserManager requestQuietModeEnabled() launcher check bypass",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Insufficient caller validation",
+  "file": "frameworks/base/services/core/java/com/android/server/pm/UserManagerService.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "requestQuietModeEnabled() checks for profile owner, device policy admin, or 'managing app' (launcher). The launcher check uses getHomeActivitiesAsUser() which returns ALL registered launchers, not just current default. Any app declaring HOME intent filter can pass the check. Attack: declare HOME category in manifest → call requestQuietModeEnabled(true, workProfileHandle) → work profile goes offline. Bypasses IT admin intent.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

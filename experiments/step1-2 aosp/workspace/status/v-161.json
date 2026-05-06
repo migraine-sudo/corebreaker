@@ -1,0 +1,20 @@
+{
+  "id": "V-161",
+  "priority": "P2-09",
+  "title": "UsageStatsService queryUsageStats cross-user info leak",
+  "type": "ID",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Cross-user boundary bypass",
+  "file": "frameworks/base/services/usage/java/com/android/server/usage/UsageStatsService.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "hasPermission() check uses callingUid but userId parameter is accepted from caller. If permission check passes for caller's own user, service proceeds to query a different user's stats. Work profile / secondary user app usage history leaked. Requires PACKAGE_USAGE_STATS (grantable through Settings UI).",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "V-143",
+  "priority": "R4-30",
+  "title": "SnoozeHelper exported receiver sendBroadcast",
+  "type": "EoP/DoS",
+  "severity": "LOW",
+  "pattern": "Unprotected broadcast receiver",
+  "file": "services/core/java/com/android/server/notification/SnoozeHelper.java",
+  "bounty_estimate": "$0 (mitigated)",
+  "status": "rejected",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-143/QuickTest2.java",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "REJECTED: 'SnoozeHelper.EVALUATE' is a protected broadcast on Android 16 (isProtectedBroadcast=true). Non-system processes (including shell uid=2000) cannot send this broadcast. SecurityException thrown: 'not allowed to send broadcast SnoozeHelper.EVALUATE'. Receiver IS registered with RECEIVER_EXPORTED and no permission protection, but the broadcast sending side is blocked.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

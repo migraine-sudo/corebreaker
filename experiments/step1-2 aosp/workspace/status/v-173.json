@@ -1,0 +1,20 @@
+{
+  "id": "V-173",
+  "priority": "P2-15",
+  "title": "Settings SearchResultTrampoline deep link URI parsing allows internal component launch",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Intent URI injection",
+  "file": "packages/apps/Settings/src/com/android/settings/search/SearchResultTrampoline.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "When EXTRA_SHOW_FRAGMENT is empty, trampoline parses intent from EXTRA_SETTINGS_EMBEDDED_DEEP_LINK_INTENT_URI via Intent.parseUri(). SettingsHomepageActivity.launchDeepLinkIntentToRight() has validation (exported, permissions, caller UID), but SearchResultTrampoline does NOT perform equivalent validation when isAlreadyEmbedded() or when caller is not SettingsIntelligence. Parsed intent started with FLAG_ACTIVITY_FORWARD_RESULT. Can launch non-exported Settings components.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

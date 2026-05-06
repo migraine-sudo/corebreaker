@@ -1,0 +1,20 @@
+{
+  "id": "V-183",
+  "priority": "P3-31",
+  "title": "AccountManagerService getAccountsByTypeForPackage type=null bypasses ownership check",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "Null parameter bypass",
+  "file": "frameworks/base/services/core/java/com/android/server/accounts/AccountManagerService.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "getAccountsByTypeForPackage(type=null, pkg) skips ownership check because condition (type != null && !isAccountManagedByCaller) is false when type is null. Authenticator app can query accounts visible to any arbitrary package across all types. Also: getAccountsAsUserForPackage reassigns callingUid=packageUid when authenticator manages the type, allowing authenticator to view accounts from target package's perspective (ACCT-3). Session bundle in finishSession not caller-bound (ACCT-2).",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

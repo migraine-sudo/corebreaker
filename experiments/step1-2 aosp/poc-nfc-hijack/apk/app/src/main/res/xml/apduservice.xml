@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- V-456 PoC: HCE service declaration with payment AIDs -->
+<host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/app_name"
+    android:requireDeviceUnlock="false"
+    android:apduServiceBanner="@null">
+
+    <!-- PPSE — Payment Proximity System Environment (entry point for all NFC payments) -->
+    <aid-group android:description="@string/app_name"
+        android:category="payment">
+        <aid-filter android:name="325041592E5359532E4444463031" />
+    </aid-group>
+
+    <!-- Visa AID -->
+    <aid-group android:description="@string/app_name"
+        android:category="payment">
+        <aid-filter android:name="A0000000031010" />
+    </aid-group>
+
+    <!-- Mastercard AID -->
+    <aid-group android:description="@string/app_name"
+        android:category="payment">
+        <aid-filter android:name="A0000000041010" />
+    </aid-group>
+
+    <!-- Register polling loop filter for NFC-A (triggers on reader presence) -->
+    <polling-loop-filter android:name="52" android:autoTransact="false" />
+    <polling-loop-filter android:name="26" android:autoTransact="false" />
+
+</host-apdu-service>

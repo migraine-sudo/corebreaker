@@ -1,0 +1,20 @@
+{
+  "id": "V-154",
+  "priority": "R4-35",
+  "title": "Proxy attribution chain forgery",
+  "type": "ID/EoP",
+  "severity": "HIGH",
+  "pattern": "Missing caller-target relationship verification",
+  "file": "services/core/java/com/android/server/appop/AppOpsService.java:2306-2364",
+  "bounty_estimate": "$3k-$8k",
+  "status": "confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-154/QuickTest2.java",
+  "vrp_report_path": "workspace/vrp-reports/v-154.md",
+  "related_cve": [],
+  "notes": "CONFIRMED: noteProxyOperationWithState allows any app to construct a forged attribution chain (self -> any victim). verifyIncomingProxyUid only validates the proxy source UID matches caller, NOT the 'next' (victim) UID. No caller-target relationship check. Shell test: successfully injected COARSE_LOCATION and CAMERA ops into GMS (uid=10206) history with proxy info. lastProxyInfo recorded. Untrusted flags (4/16) used instead of trusted (2/8) but operation still recorded. Code analysis confirms unprivileged app can succeed: z4=false, z5=false, but noteOperationUnchecked still called. IMPACT: Privacy Dashboard poisoning — fake permission access records for any app. Potential for user confusion/alarm.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

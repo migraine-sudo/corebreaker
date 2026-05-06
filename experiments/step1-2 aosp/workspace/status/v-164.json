@@ -1,0 +1,20 @@
+{
+  "id": "V-164",
+  "priority": "P3-22",
+  "title": "StorageManager getVolumes() zero-permission volume UUID leak",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/core/java/com/android/server/StorageManagerService.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "getVolumes() returns VolumeInfo objects including internal volume UUIDs (partUuid, fsUuid) without any permission. Volume UUIDs survive ANDROID_ID reset and app reinstall — stable hardware fingerprint. Can be used as persistent device identifier across app reinstalls.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

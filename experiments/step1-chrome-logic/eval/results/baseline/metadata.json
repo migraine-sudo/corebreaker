@@ -1,0 +1,7 @@
+{
+  "experiment": "baseline",
+  "model": "sonnet",
+  "timestamp": "2026-05-01T16:17:07Z",
+  "claude_md_hash": "d1664c1b98d2ea5d6c66eab912cc4bac",
+  "gt_entries": 10
+}

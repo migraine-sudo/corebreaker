@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": true,
+  "file": "components/browsing_topics/epoch_topics.cc",
+  "line": 191,
+  "root_cause": "should_be_filtered is computed against the real_topic's observer domains but then applied to the random_topic. When a caller never observed the user's real topic, should_be_filtered=true causes the random topic to also be suppressed. This eliminates the 5% noise guarantee, creating a binary oracle: if a non-observing caller EVER receives a topic, it proves the random path fired AND the real topic happened to be one they observed—leaking cross-site interest data that the noise was designed to hide.",
+  "exploitable": true,
+  "exploit_conditions": "Attacker operates two contexts: (1) a 'probe' domain that has never called browsingTopics on sites related to the target topic category, and (2) a 'reference' domain that has observed the user broadly. By comparing response rates between the two over multiple epochs, the attacker can distinguish 'user has interest X' (probe gets 0% topics) from 'user does not have interest X' (probe gets ~5% random topics) with statistical confidence, defeating the plausible deniability guarantee without any special permissions or flags.",
+  "suggested_fix": "Recompute should_be_filtered against the random_topic's own observer domains when use_random_topic is true. The random topic should be filtered only if the caller never observed the user on sites related to the random topic itself, preserving the 5% noise rate independent of the real topic selection.",
+  "confidence": "high"
+}
+```

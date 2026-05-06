@@ -1,0 +1,20 @@
+{
+  "id": "V-168",
+  "priority": "P2-12",
+  "title": "CrossProfileApps checkCallingOrSelfPermission return value discarded — cross-user queries unprotected",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "Discarded permission check result",
+  "file": "frameworks/base/services/core/java/com/android/server/pm/CrossProfileAppsServiceImpl.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "canConfigureInteractAcrossProfiles() and canUserAttemptToConfigureInteractAcrossProfiles() call checkCallingOrSelfPermission(INTERACT_ACROSS_USERS) but DISCARD the return value. Should use enforceCallingOrSelfPermission(). Any app can query cross-user profile configurations, learn package installation status on other profiles, and discover multi-user setup without INTERACT_ACROSS_USERS.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

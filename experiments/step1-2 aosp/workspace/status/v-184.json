@@ -1,0 +1,20 @@
+{
+  "id": "V-184",
+  "priority": "P1-07",
+  "title": "CredentialManager executeGetCredential enforceCallingPackage bypass for GMS + getCandidateCredentials autofill-only",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "Missing permission check on alternative code path",
+  "file": "frameworks/base/services/credentials/java/com/android/server/credentials/CredentialManagerService.java",
+  "bounty_estimate": "$5k-$15k",
+  "status": "device_confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel) AP4A.260405.005 Android 16",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-184/",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "DEVICE CONFIRMED. Multiple findings: (1) executeGetCredential('com.google.android.gms') from shell uid 2000 — passes enforceCallingPackage (RemoteException not SecurityException), while chrome/settings/whatsapp are properly rejected. GMS has special path allowing callingPackage spoof. (2) getCandidateCredentials blocked by separate 'credential autofill package' check — not exploitable from shell. (3) getCredentialProviderServicesForTesting() zero-perm — returns PasswordAndPasskeyService on production device. (4) clearCredentialState('com.android.shell') succeeds — shell can clear its own credential state. (5) getCredentialProviderServices completely zero-perm with cross-user (V-189 confirmed separately). Original code audit findings about missing enforceCallingPackage in getCandidateCredentials are partially confirmed — the autofill check provides a different gate, but the GMS bypass in executeGetCredential is a new finding.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

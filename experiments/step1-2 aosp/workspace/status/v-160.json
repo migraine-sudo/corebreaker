@@ -1,0 +1,20 @@
+{
+  "id": "V-160",
+  "priority": "P2-08",
+  "title": "ContentService cancelSync() missing caller-account ownership check",
+  "type": "DoS",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Missing authorization check",
+  "file": "frameworks/base/services/core/java/com/android/server/content/ContentService.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "cancelSync() checks INTERACT_ACROSS_USERS_FULL for cross-user but does NOT validate that the caller owns the specified Account. Any app can cancel sync operations for any account on the device (email, contacts, calendar). Account object constructable with just name+type strings. Also affects removePeriodicSync().",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

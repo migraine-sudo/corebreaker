@@ -1,0 +1,20 @@
+{
+  "id": "V-165",
+  "priority": "P3-23",
+  "title": "ConnectivityService VPN detection via getActiveNetworkInfo/getAllNetworks",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "Info leak across security boundary",
+  "file": "frameworks/base/services/core/java/com/android/server/ConnectivityService.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "getActiveNetworkInfo() reveals transport type. When VPN active, transport reveals VPN usage. getAllNetworks() can enumerate all interfaces including underlying real connection. Also cross-profile: work profile apps see personal network details. VPN detection is a known privacy concern.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

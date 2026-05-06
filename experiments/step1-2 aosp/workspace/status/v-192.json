@@ -1,0 +1,20 @@
+{
+  "id": "V-192",
+  "priority": "P3-37",
+  "title": "PackageManagerService verifyPendingInstall skips permission for negative verification IDs",
+  "type": "EoP",
+  "severity": "LOW-MEDIUM",
+  "pattern": "Conditional permission bypass",
+  "file": "frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java",
+  "bounty_estimate": "$0-$2k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "verifyPendingInstall (lines 6499-6529) and extendVerificationTimeout (lines 4994-5029) skip PACKAGE_VERIFICATION_AGENT permission check when verificationId < 0 (labeled 'testing verifiers'). Secondary UID check (checkRequiredVerifierUid/checkSufficientVerifierUid) still applies. Defense-in-depth weakened but not directly exploitable without matching verifier UID.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

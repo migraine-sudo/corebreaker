@@ -1,0 +1,20 @@
+{
+  "id": "V-181",
+  "priority": "P2-20",
+  "title": "VirtualDeviceManager mirror display input injection targets physical display",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Input injection across trust boundary",
+  "file": "frameworks/base/services/companion/java/com/android/server/companion/virtual/VirtualDeviceImpl.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Two paths for input injection to physical display: (1) VDM-1: INJECT_EVENTS permission bypasses ALL display ownership checks in checkVirtualInputDeviceDisplayIdAssociation (line 1622). (2) VDM-2: Mirror display path - getTargetDisplayIdForInput (line 1430) follows mirror chains to physical display. checkVirtualInputDeviceDisplayIdAssociation explicitly allows mirror displays (line 1629: isMirror() passes untrusted check). App with CREATE_VIRTUAL_DEVICE + CDM NEARBY_DEVICE_STREAMING association can create mirror of default display and inject touch/key events. No user-visible indication.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

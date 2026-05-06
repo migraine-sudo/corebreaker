@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": false,
+  "file": "content/common/features.cc",
+  "line": 706,
+  "root_cause": "These are feature flags for security checks being incrementally rolled out under a tracked bug (crbug.com/495999481). The team is aware they are disabled by default and is staging enablement. This is not a vulnerability — it is a known, intentional staged rollout.",
+  "exploitable": false,
+  "exploit_conditions": "N/A — known staged rollout with tracking bug",
+  "suggested_fix": "No fix needed; the flags will be enabled by default in a future milestone as part of the planned rollout.",
+  "confidence": "high"
+}
+```

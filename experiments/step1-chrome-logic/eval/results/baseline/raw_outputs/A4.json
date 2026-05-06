@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": false,
+  "file": "content/browser/worker_host/shared_worker_service_impl.cc",
+  "line": 141,
+  "root_cause": "The check correctly enforces that third-party contexts cannot request SameSite Strict/Lax cookies. For first-party contexts, the renderer legitimately controls the same_site_cookies value. The only attack vector (lying about the value via Mojo IPC) requires a compromised renderer, which is outside the threat model for logic bugs exploitable from normal web pages.",
+  "exploitable": false,
+  "exploit_conditions": "Requires a compromised renderer to send arbitrary Mojo IPC values — not achievable from a normal web page",
+  "suggested_fix": "No fix needed. The browser-side check is correct for the threat model. Adding browser-side recomputation of same_site_cookies would be defense-in-depth only.",
+  "confidence": "high"
+}
+```

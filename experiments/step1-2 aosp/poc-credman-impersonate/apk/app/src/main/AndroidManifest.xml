@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.poc.credmanleak">
+
+    <!--
+        V-395: CredentialManager getCandidateCredentials Package Impersonation
+
+        PERMISSIONS REQUIRED: NONE
+        The getCandidateCredentials AIDL method does NOT call enforceCallingPackage(),
+        allowing any app to query credential metadata as if it were another package.
+    -->
+
+    <uses-sdk android:minSdkVersion="34" android:targetSdkVersion="35" />
+
+    <application
+        android:label="CredMan Impersonate PoC"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="CredMan Impersonate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

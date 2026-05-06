@@ -1,0 +1,20 @@
+{
+  "id": "V-167",
+  "priority": "P1-04",
+  "title": "DisplayManagerService overrideHdrTypes() zero permission check",
+  "type": "EoP",
+  "severity": "HIGH",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/core/java/com/android/server/display/DisplayManagerService.java",
+  "bounty_estimate": "$5k-$15k",
+  "status": "cross_verified",
+  "verified_on": "2026-04-29",
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "CROSS-VERIFIED CONFIRMED. AIDL comment says 'Requires ACCESS_SURFACE_FLINGER' but no @EnforcePermission annotation, no enforcePermission() call. Adjacent method requestColorMode has proper @EnforcePermission('CONFIGURE_DISPLAY_COLOR_MODE'). overrideHdrTypes(int displayId, int[] modes) has NO permission check. Compare: setUserDisabledHdrTypes and setAreUserDisabledHdrTypesAllowed both require WRITE_SECURE_SETTINGS. Any app can call overrideHdrTypes to modify SurfaceFlinger display HDR config. Can disable HDR or set bogus types causing rendering issues. Directly calls DisplayControl.overrideHdrTypes(displayToken, modes).",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

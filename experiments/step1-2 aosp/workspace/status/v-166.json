@@ -1,0 +1,20 @@
+{
+  "id": "V-166",
+  "priority": "P3-24",
+  "title": "NetworkPolicyManager setUidPolicy() shell-level arbitrary network policy",
+  "type": "DoS",
+  "severity": "MEDIUM",
+  "pattern": "Shell privilege abuse",
+  "file": "frameworks/base/services/core/java/com/android/server/net/NetworkPolicyManagerService.java",
+  "bounty_estimate": "$2k-$5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Shell (uid 2000) holds MANAGE_NETWORK_POLICY. ADB-connected attacker can set arbitrary network policies for any UID — restrict background data, block metered access. Combined with other shell-level attacks for persistent DoS. Also: getUidPolicy()/getUidsWithPolicy() leaks network policy flags for any UID without caller check.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

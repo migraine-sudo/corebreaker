@@ -1,0 +1,20 @@
+{
+  "id": "V-182",
+  "priority": "P3-30",
+  "title": "WifiService getChannelData uses weaker permission check than getScanResults for location data",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "Permission level mismatch",
+  "file": "packages/modules/Wifi/service/java/com/android/server/wifi/WifiServiceImpl.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "getScanResults() enforces enforceCanAccessScanResults (location permission + location enabled). getChannelData() (line 4849) only enforces enforceNearbyDevicesPermission (NEARBY_WIFI_DEVICES). App with NEARBY_WIFI_DEVICES + neverForLocation flag avoids location permission but gets frequency/AP-count distribution — a location fingerprint. Research shows WiFi channel occupancy can be used for coarse localization.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

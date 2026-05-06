@@ -1,0 +1,54 @@
+{
+  "id": "V-240",
+  "title": "IntentForwarderActivity Self-Changing Data Type TOCTOU — Cross-Profile Intent Filter Bypass",
+  "component": "com.android.internal.app.IntentForwarderActivity",
+  "type": "EoP",
+  "severity": "High",
+  "status": "verified_on_device",
+  "discovery_method": "static_analysis",
+  "discovery_date": "2026-05-04",
+  "verification_date": "2026-05-04",
+  "device": "Pixel 10 (frankel)",
+  "build": "CP1A.260405.005",
+  "android_version": 16,
+  "security_patch": "2026-04-05",
+  "root_cause": "Intent.resolveTypeIfNeeded() does not cache resolved type in mType. ResolverActivity and IntentForwarderActivity call getType() multiple times per resolution. Malicious ContentProvider returns different MIME types on each call, routing intents to unintended handlers.",
+  "attack_vector": "Attacker app with ContentProvider whose getType() returns different MIME types. First call returns innocuous type (text/plain) for initial resolution; subsequent calls return certificate type (application/x-x509-ca-cert) causing ResolverActivity to select CertInstallerMain.",
+  "prerequisites": [
+    "Attacker app with exported ContentProvider and getType() TOCTOU",
+    "CertInstallerMain present on device (standard AOSP component)"
+  ],
+  "impact": [
+    "Arbitrary MIME type routing to system certificate installer (CertInstallerMain)",
+    "Cross-profile security policy bypass when work profile exists",
+    "Potential CA certificate installation with user interaction (misleading UI)",
+    "Arbitrary activity launch via type confusion in intent resolution"
+  ],
+  "mitigations_bypassed": [
+    "sanitizeIntent() strips component/package but NOT type — irrelevant since type comes from ContentProvider dynamically",
+    "preventIntentRedirect / creatorToken validates Intent object integrity, not external ContentProvider returns",
+    "Intent.resolveTypeIfNeeded() designed to re-query provider each time (no caching)"
+  ],
+  "related_cves": ["CVE-2024-40676", "CVE-2024-0015"],
+  "related_research": "Flanker DEF CON 33 - Self-Changing Data Type attack pattern",
+  "verification": "end_to_end_on_device",
+  "verification_results": {
+    "same_user_type_switch": "CONFIRMED — getType() called 6+ times during single intent resolution. EvilProvider alternates text/plain and application/x-x509-ca-cert. CertInstallerMain launched automatically by ResolverActivity.",
+    "cross_profile_forwarding": "PARTIAL — IntentForwarderActivity resolves in query-activities but ResolverActivity reports 0 cross-profile resolvers. Cross-profile filter direction may need adjustment.",
+    "cert_installer_launch": "CONFIRMED — com.android.certinstaller/.CertInstallerMain started with realCallingUid=1000 (system). Payload data accessible via content:// URI with FLAG_GRANT_READ_URI_PERMISSION."
+  },
+  "device_logs": {
+    "gettype_calls": "EvilProvider: getType() call #1 text/plain -> #2 application/x-x509-ca-cert -> #3 text/plain -> ... (alternating)",
+    "certinstaller_start": "ActivityTaskManager: START u0 {act=android.intent.action.VIEW dat=content://com.poc.typeswitcher/... cmp=com.android.certinstaller/.CertInstallerMain} from uid 10501 (com.poc.typeswitcher) (realCallingUid=1000)",
+    "resolver_behavior": "ResolverListAdapter: Add DisplayResolveInfo component: CertInstallerMain — auto-selected as only matching handler for cert type"
+  },
+  "files": {
+    "vrp_report_en": "workspace/poc/v-240/VRP_REPORT_EN.md",
+    "vrp_report_cn": "workspace/poc/v-240/VRP_REPORT_CN.md",
+    "vrp_submission": "workspace/poc/v-240/VRP_SUBMISSION.md",
+    "poc_shell": "workspace/poc/v-240/SelfChangingTypePoC.java",
+    "poc_apk": "workspace/poc/v-240/apk/build/v240-typeswitcher.apk",
+    "poc_source": "workspace/poc/v-240/apk/src/com/poc/typeswitcher/"
+  },
+  "suggested_fix": "Cache resolved type after first resolution. Options: (1) Pin type in Intent.resolveTypeIfNeeded() by setting mType = resolved; (2) IntentForwarderActivity saves resolvedType and uses setType() before forwarding; (3) ResolverActivity calls getType() once and caches for all subsequent operations."
+}

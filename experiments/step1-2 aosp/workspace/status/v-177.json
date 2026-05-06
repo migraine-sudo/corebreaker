@@ -1,0 +1,20 @@
+{
+  "id": "V-177",
+  "priority": "P3-28",
+  "title": "AudioService adjustStreamVolume VOICE_CALL with normal-level MODIFY_AUDIO_SETTINGS",
+  "type": "DoS",
+  "severity": "MEDIUM",
+  "pattern": "Insufficient permission level",
+  "file": "frameworks/base/services/core/java/com/android/server/audio/AudioService.java",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "PARTIALLY CONFIRMED. adjustStreamVolume() MODIFY_PHONE_STATE check only applies to mute (isMuteAdjust=true). Non-mute volume up/down on STREAM_VOICE_CALL only needs MODIFY_AUDIO_SETTINGS (normal level). Any foreground app can max/min call volume during active call. CAVEAT: HardeningEnforcer.blockVolumeMethod() may limit background apps (flag-gated by autoPublicVolumeApiHardening). CORRECTION: setMicrophoneMute() is FALSE POSITIVE — MODIFY_AUDIO_SETTINGS is the documented required permission per API contract.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

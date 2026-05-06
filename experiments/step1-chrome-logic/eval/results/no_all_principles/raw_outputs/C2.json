@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": false,
+  "file": "front_end/core/sdk/PageResourceLoader.ts",
+  "line": 345,
+  "root_cause": "This code runs in DevTools frontend (not in the inspected page's renderer). The 'host bindings' fallback uses CDP (Chrome DevTools Protocol) to fetch resources, which is a privileged channel available only when DevTools is open. An attacker on a normal web page cannot invoke PageResourceLoader — it requires an active DevTools session attached to the page.",
+  "exploitable": false,
+  "exploit_conditions": "Attacker would need the victim to have DevTools open AND would need to control timing of iframe removal to trigger 'Frame not found' error. Even then, the resource is loaded into DevTools UI, not into the page context — no same-origin data is leaked to the attacker's page. CSP bypass only affects what DevTools itself can display, not what the inspected page can execute.",
+  "suggested_fix": "N/A — this is defense-in-depth at best. DevTools intentionally has elevated privileges over the inspected page.",
+  "confidence": "high"
+}
+```

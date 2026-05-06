@@ -1,0 +1,20 @@
+{
+  "id": "V-191",
+  "priority": "P3-36",
+  "title": "LockSettingsService startRemoteLockscreenValidation/validateRemoteLockscreen no permission check at binder layer",
+  "type": "EoP",
+  "severity": "NEEDS_DEEPER_REVIEW",
+  "pattern": "Missing permission check (needs verification of deeper layer)",
+  "file": "frameworks/base/services/core/java/com/android/server/locksettings/LockSettingsService.java",
+  "bounty_estimate": "$0-$10k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "startRemoteLockscreenValidation() and validateRemoteLockscreen() at lines 2857-2869 have NO permission check before delegating to RecoverableKeyStoreManager. AIDL has no @EnforcePermission. Security likely in RecoverableKeyStoreManager (typically requires RECOVER_KEYSTORE). If that class has no check, this is HIGH — any app could initiate remote lock screen credential validation. Needs source verification of RecoverableKeyStoreManager.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

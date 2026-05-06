@@ -1,0 +1,20 @@
+{
+  "id": "V-151",
+  "priority": "R4-31",
+  "title": "startWatchingMode zero-perm op change monitoring",
+  "type": "ID",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Unprotected Binder API",
+  "file": "services/core/java/com/android/server/appop/AppOpsService.java:2040",
+  "bounty_estimate": "$3k-$5k",
+  "status": "confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-151/QuickTest.java",
+  "vrp_report_path": "workspace/vrp-reports/v-151.md",
+  "related_cve": [],
+  "notes": "CONFIRMED: startWatchingMode(int op, String packageName, IAppOpsCallback) has ZERO permission checks in AppOpsService (verified in decompiled code). Any app can register watcher for any op on any package. Callback delivers op change notifications in real-time. WATCH_FOREGROUND_CHANGES flag tracks foreground/background transitions. ALSO: checkOperation() has no blanket permission check (only blocks read-restricted ops). getPackagesForOps() requires GET_APP_OPS_STATS for other UIDs (shell has it, normal apps don't). Full exploit requires APK with IAppOpsCallback implementation to register persistent watcher.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "V-172",
+  "priority": "P2-14",
+  "title": "Gallery2 GalleryActivity FLAG_DISMISS_KEYGUARD via intent extra — lock screen bypass",
+  "type": "EoP",
+  "severity": "MEDIUM-HIGH",
+  "pattern": "Intent-controlled security flag",
+  "file": "packages/apps/Gallery2/src/com/android/gallery3d/app/GalleryActivity.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "GalleryActivity reads boolean extra KEY_DISMISS_KEYGUARD ('dismiss-keyguard') from intent and sets FLAG_DISMISS_KEYGUARD on window. Exported activity accepting ACTION_VIEW from any app. FLAG_DISMISS_KEYGUARD deprecated API 26 but may still function on some devices. Gallery2 targets SDK 28. Also: CropActivity reads getShowWhenLocked() from CropExtras and sets FLAG_SHOW_WHEN_LOCKED over lock screen. NOTE: Gallery2 may not be present on Pixel 10 — needs verification.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

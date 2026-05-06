@@ -1,0 +1,12 @@
+build/obj/com/poc/nfchijack/R.class
+build/obj/com/poc/nfchijack/R$xml.class
+build/obj/com/poc/nfchijack/MainActivity.class
+build/obj/com/poc/nfchijack/ReflectionHelper.class
+build/obj/com/poc/nfchijack/R$id.class
+build/obj/com/poc/nfchijack/NfcKillService.class
+build/obj/com/poc/nfchijack/NfcKillService$1.class
+build/obj/com/poc/nfchijack/PollingInjector$1.class
+build/obj/com/poc/nfchijack/R$string.class
+build/obj/com/poc/nfchijack/HijackHceService.class
+build/obj/com/poc/nfchijack/PollingInjector.class
+build/obj/com/poc/nfchijack/R$layout.class

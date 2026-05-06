@@ -1,0 +1,20 @@
+{
+  "id": "V-138",
+  "priority": "R4-33",
+  "title": "Enabled a11y service enumeration",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "@RequiresNoPermission API",
+  "file": "services/accessibility/java/com/android/server/accessibility/AccessibilityManagerService.java",
+  "bounty_estimate": "$500-$1k",
+  "status": "confirmed",
+  "verified_on": "2026-04-29",
+  "device": "Pixel 10 (frankel), Android 16, CP1A.260405.005",
+  "patch_level": "2026-04-05",
+  "poc_path": "workspace/poc/v-138/QuickTest.java",
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "CONFIRMED: getEnabledAccessibilityServiceList(FEEDBACK_ALL_MASK, userId) callable with zero permissions. Returns list of enabled a11y services including package name and service info. On test device, no a11y services currently enabled so returned empty list, but API confirmed accessible. Reveals sensitive user preferences (disability status, password manager, security tools). getInstalledAccessibilityServiceList() also available.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

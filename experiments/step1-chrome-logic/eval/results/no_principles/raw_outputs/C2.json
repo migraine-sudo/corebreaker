@@ -1,0 +1,12 @@
+```json
+{
+  "has_security_issue": false,
+  "file": "front_end/core/sdk/PageResourceLoader.ts",
+  "line": 345,
+  "root_cause": "This code runs in DevTools (front_end/core/sdk/), not in the renderer or browser process. The 'host bindings' fallback loads resources through the DevTools backend (CDP), which is a privileged debugging channel that already has full access to page content. A CSP bypass within DevTools' own resource loading (for source maps) does not grant an attacker any capability they don't already have — DevTools can read all page resources regardless of CSP. This is not exploitable from a normal web page.",
+  "exploitable": false,
+  "exploit_conditions": "Would require the attacker to control DevTools frontend code or trick a user into running malicious DevTools extensions. Normal web pages cannot invoke PageResourceLoader — it is internal to the DevTools frontend.",
+  "suggested_fix": "No security fix needed. The fallback is by-design for DevTools functionality. If desired for correctness, the error check could be broadened to also suppress fallback on frame-not-found errors, but this is a UX issue not a security issue.",
+  "confidence": "high"
+}
+```

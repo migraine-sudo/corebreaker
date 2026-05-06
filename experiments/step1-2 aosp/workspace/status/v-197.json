@@ -1,0 +1,20 @@
+{
+  "id": "V-197",
+  "priority": "P3-3",
+  "title": "ContentService.addStatusChangeListener 零权限同步状态监听",
+  "type": "Info",
+  "severity": "LOW",
+  "pattern": "Missing permission check",
+  "file": "frameworks/base/services/core/java/com/android/server/content/ContentService.java",
+  "bounty_estimate": "$500",
+  "status": "code_confirmed",
+  "verified_on": "2026-04-29",
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "addStatusChangeListener(mask, observer) has no READ_SYNC_STATS or READ_SYNC_SETTINGS permission check. Compare with getCurrentSyncsAsUser (requires READ_SYNC_STATS) and getSyncAutomaticallyAsUser (requires READ_SYNC_SETTINGS). Any app can monitor global sync state changes for user profiling.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "V-180",
+  "priority": "P2-19",
+  "title": "HealthConnect readRecords by ID skips enforceSelfRead package filter",
+  "type": "ID",
+  "severity": "MEDIUM",
+  "pattern": "Authorization bypass via alternative code path",
+  "file": "packages/modules/HealthFitness/service/java/com/android/server/healthconnect/HealthConnectServiceImpl.java",
+  "bounty_estimate": "$3k-$7.5k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "When reading records by ID (RecordIdFiltersParcel != null), maybeEnforceOnlyCallingPackageDataRequested is explicitly skipped (line 712-716). Has acknowledged TODO(b/309778116). App with only WRITE permission (enforceSelfRead=true) should only read own data, but when reading by UUID obtained from getChangeLogs, this enforcement is bypassed. Combined with HC-2: getChangeLogs reveals UUIDs of other apps' records.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "V-175",
+  "priority": "P3-27",
+  "title": "SystemUI multiple exported services/activities without permission protection",
+  "type": "DoS",
+  "severity": "MEDIUM",
+  "pattern": "Exported component without permission",
+  "file": "packages/SystemUI/AndroidManifest.xml",
+  "bounty_estimate": "$1k-$3k",
+  "status": "needs_verification",
+  "verified_on": null,
+  "device": null,
+  "patch_level": null,
+  "poc_path": null,
+  "vrp_report_path": null,
+  "related_cve": [],
+  "notes": "Multiple SystemUI components exported without permission: (1) SystemUIService exported=true, no permission, TODO comment in source. startService triggers re-init, UI disruption DoS. (2) WalletContextualLocationsService exported without permission. (3) MediaProjectionPermissionActivity exported without permission, showForAllUsers=true — any app can trigger screen recording consent dialog. (4) TouchpadTutorialActivity, KeyboardTouchpadTutorialActivity exported without permission, showForAllUsers=true.",
+  "created": "2026-04-29",
+  "updated": "2026-04-29"
+}
