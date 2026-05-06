@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "DNR CSP Bypass PoC",
+  "version": "1.0",
+  "description": "Demonstrates declarativeNetRequest redirect to data: URL bypassing CSP",
+  "permissions": [
+    "declarativeNetRequest"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "static_rules",
+      "enabled": true,
+      "path": "rules.json"
+    }]
+  }
+}
